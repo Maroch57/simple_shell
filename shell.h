@@ -37,13 +37,13 @@ extern char **environ;
  * struct strng_l - A singly linked list
  * @nmber: The field denoting numbers
  * @strng: The string
- * @nxt: The pointer to the next node
+ * @next: The pointer to the next node
  */
 typedef struct strng_l
 {
 	int nmber;
 	char *strng;
-	struct strng_l *nxt;
+	struct strng_l *next;
 } lst_m;
 
 #define FILE_H	".simple_shell_history"
@@ -159,7 +159,7 @@ int alum_hist(pseuarg_ch *);
 char *histfile_fetch(pseuarg_ch *info);
 int hist_updt(pseuarg_ch *info);
 int rdhist(pseuarg_ch *info);
-int histlst_b(pseuarg_ch *info, char *buf, int linecount);
+int histlst_b(pseuarg_ch *info, char *buff, int linecount);
 int nmber_hist(pseuarg_ch *info);
 
 /* toem_vars.c */
@@ -183,10 +183,10 @@ void freelst(lst_m **);
 
 /**
  *struct pseuarg - The pseudo-arguements to be passed to functions
- *@firstarg: Argument string
- *@comparg: String array
+ *@arg: Argument string
+ *@argv: String array
  *@way: The string path denoting the current command
- *@conarg: Argument count
+ *@argc: Argument count
  *@cnterr: Error count
  *@errn: Error code
  *@cntline_flg: Input line count
@@ -204,8 +204,8 @@ void freelst(lst_m **);
  */
 typedef struct pseuarg
 {
-	char *firstarg;
-	char **comparg;
+	char *arg;
+	char **argv;
 	char *way;
 	int conarg;
 	unsigned int cnterr;
