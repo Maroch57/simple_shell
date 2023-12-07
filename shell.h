@@ -227,6 +227,6 @@ typedef struct pseuarg
 
 #define INIT_GET \
 {NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
-	0, 0, 0} //Ask if these "NULL"s should be changed
+	0, 0, 0} //consult sharon if the digits need change
 
 #endif
