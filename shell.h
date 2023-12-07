@@ -44,16 +44,10 @@ typedef struct strng_l
 	int nmber;
 	char *strng;
 	struct strng_l *nxt;
-}
-	lst_m;
+} lst_m;
 
 #define FILE_H	".simple_shell_history"
 #define MAX_H	4096
-
-pseuarg
-
-/* toem_memory.c */
-int freepoint(void **);
 
 /**
  *struct embedstr - Struct contains embedded str and respective fn.
@@ -82,9 +76,9 @@ void strngin(char *);
 int _putchar(char);
 
 /* toem_parser.c */
-int cmdprt(info_t *, char *);
+int cmdprt(pseuarg_ch *, char *);
 char *chardup(char *, int, int);
-char *locpath(info_t *, char *, char *);
+char *locpath(pseuarg_ch *, char *, char *);
 
 /* toem_errors.c */
 void putide(char *);
@@ -105,7 +99,7 @@ char *strn_cat(char *, char *);
 
 /* toem_errors1.c */
 int exst_err(char *);
-void errorprnt(info_t *, char *);
+void errorprnt(pseuarg_ch *, char *);
 int disprnt(int, int);
 char *conv_nmber(long int, int, int);
 void rm_comm(char *);
@@ -116,8 +110,8 @@ void dmfree(char **);
 void *mem_ralloc(void *, unsigned int, unsigned int);
 
 /*toem_getline.c */
-ssize_t inpt_gt(info_t *);
-int get_delim(info_t *, char **, size_t *);
+ssize_t inpt_gt(pseuarg_ch *);
+int get_delim(pseuarg_ch *, char **, size_t *);
 void mngint(int);
 
 /* toem_tokenizer.c */
@@ -128,93 +122,111 @@ char **checkstrn(char *, char);
 int mem_free(void **);
 
 /* toem_getinfo.c */
-void infclr(info_t *);
-void infprs(info_t *, char **);
-void infree(info_t *, int);
+void infclr(pseuarg_ch *);
+void infprs(pseuarg_ch *, char **);
+void infree(pseuarg_ch *, int);
 
 /* toem_getenv.c */
-char **aqrenv(info_t *);
-int envunp(info_t *, char *);
-int ptenv(info_t *, char *, char *);
+char **aqrenv(pseuarg_ch *);
+int envunp(pseuarg_ch *, char *);
+int ptenv(pseuarg_ch *, char *, char *);
 
 /* toem_atoi.c */
-int actv_int(info_t *);
+int actv_int(pseuarg_ch *);
 int prser(char, char *);
 int bst_int(int);
 int atoi_t(char *);
 
 /* toem_environ.c */
-char *pop_env(info_t *, const char *);
-int myown_env(info_t *);
-int good_env(info_t *);
-int bad_env(info_t *);
-int fill_env(info_t *);
+char *pop_env(pseuarg_ch *, const char *);
+int myown_env(pseuarg_ch *);
+int good_env(pseuarg_ch *);
+int bad_env(pseuarg_ch *);
+int fill_env(pseuarg_ch *);
 
 /* toem_lists1.c */
-size_t lngth_lst(const list_t *);
-char **strng_lst(list_t *);
-size_t prnt_lst(const list_t *);
-list_t *strt_strng(list_t *, char *, char);
-ssize_t indx_gt(list_t *, list_t *);
+size_t lngth_lst(const lst_m *);
+char **strng_lst(lst_m *);
+size_t prnt_lst(const lst_m *);
+lst_m *strt_strng(lst_m *, char *, char);
+ssize_t indx_gt(lst_m *, lst_m *);
 
 /* toem_builtin1.c */
-int hist_rep(info_t *);
-int alum_hist(info_t *);
+int hist_rep(pseuarg_ch *);
+int alum_hist(pseuarg_ch *);
 
 /* toem_history.c */
-char *histfile_fetch(info_t *info);
-int hist_updt(info_t *info);
-int rdhist(info_t *info);
-int histlst_b(info_t *info, char *buf, int linecount);
-int nmber_hist(info_t *info);
+char *histfile_fetch(pseuarg_ch *info);
+int hist_updt(pseuarg_ch *info);
+int rdhist(pseuarg_ch *info);
+int histlst_b(pseuarg_ch *info, char *buf, int linecount);
+int nmber_hist(pseuarg_ch *info);
 
 /* toem_vars.c */
-int str_ch(info_t *, char *, size_t *);
-void look_ch(info_t *, char *, size_t *, size_t, size_t);
-int rp_alias(info_t *);
-int rp_vstr(info_t *);
+int str_ch(pseuarg_ch *, char *, size_t *);
+void look_ch(pseuarg_ch *, char *, size_t *, size_t, size_t);
+int rp_alias(pseuarg_ch *);
+int rp_vstr(pseuarg_ch *);
 int strn_chng(char **, char *);
 
 /* toem_builtin.c */
-int exist_sts(info_t *);
-int cd_mine(info_t *);
-int help_inf(info_t *);
+int exist_sts(pseuarg_ch *);
+int cd_mine(pseuarg_ch *);
+int help_inf(pseuarg_ch *);
 
 /* toem_lists.c */
-list_t *populate_node(list_t **, const char *, int);
-list_t *endnode_add(list_t **, const char *, int);
-size_t lststr_prnt(const list_t *);
-int indxnode_del(list_t **, unsigned int);
-void freelst(list_t **);
+lst_m *populate_node(lst_m **, const char *, int);
+lst_m *endnode_add(lst_m **, const char *, int);
+size_t lststr_prnt(const lst_m *);
+int indxnode_del(lst_m **, unsigned int);
+void freelst(lst_m **);
 
+/**
+ *struct pseuarg - The pseudo-arguements to be passed to functions
+ *@firstarg: Argument string
+ *@comparg: String array
+ *@way: The string path denoting the current command
+ *@conarg: Argument count
+ *@cnterr: Error count
+ *@errn: Error code
+ *@cntline_flg: Input line count
+ *@progname: Filename denoting the program
+ *@exvar: Linked list copy
+ *@environ: //Ask about this one as well
+ *@hst: Node denoting the history
+ *@fake: Node denoting the alias
+ *@new_env: Checks for environment change
+ *@tellstat: Return status of previous command
+ *@cdbuffer: Pointer address
+ *@cdbuffertype: CMD_type ||, &&, ; //Hapa roho safi sijui
+ *@telldes: Fd denoting line input
+ *@tellhist: Number of history lines
+ */
+typedef struct pseuarg
+{
+	char *firstarg;
+	char **comparg;
+	char *way;
+	int conarg;
+	unsigned int cnterr;
+	int errn;
+	int cntline_flg;
+	char *progname;
+	lst_m *exvar;
+	lst_m *hst;
+	lst_m *fake;
+	char **environ; //Ask Sharon if this should be changed
+	int new_env;
+	int tellstat;
 
+	char **cdbuffer; /* pointer to cmd ; chain buffer, for memory mangement */
+	int cdbuffertype; /* CMD_type ||, &&, ; */
+	int telldes;
+	int tellhist;
+} pseuarg_ch;
 
-
+#define INIT_GET \
+{NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
+	0, 0, 0} //Ask if these "NULL"s should be changed
 
 #endif
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
