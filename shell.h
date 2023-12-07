@@ -49,8 +49,6 @@ typedef struct strng_l
 #define FILE_H	".simple_shell_history"
 #define MAX_H	4096
 
-pseuarg
-
 /**
  *struct embedstr - Struct contains embedded str and respective fn.
  *@cflg: The flag denoting the embedded command
@@ -75,7 +73,7 @@ void loc_fork(pseuarg_ch *);
 char *strngcop(char *, char *);
 char *strngclone(const char *);
 void strngin(char *);
-int _putchar(char); /* consult sharon for changes. This line has a betty error */
+int _putchar(char);
 
 /* toem_parser.c */
 int cmdprt(pseuarg_ch *, char *);
@@ -184,26 +182,25 @@ int indxnode_del(lst_m **, unsigned int);
 void freelst(lst_m **);
 
 /**
- *struct pseuarg - contains pseudo-arguements to pass into a function,
- *		allowing uniform prototype for function pointer struct
- *@firstarg: a string generated from getline containing arguements
- *@comparg: an array of strings generated from arg
- *@way: a string path for the current command
- *@conarg: the argument count
- *@cntline: the error count
- *@errn: the error code for exit()s
- *@cntline_flg: if on count this line of input
- *@tifit: the program filename
- *@exvar: linked list local copy of environ
- *@environ: custom modified copy of environ from LL env //Ask about this one as well
- *@hst: the history node
- *@fake: the alias node
- *@new_env: on if environ was changed
- *@tellstat: the return status of the last exec'd command
- *@cdbuffer: address of pointer to cmd_buf, on if chaining
- *@cdbuffertype: CMD_type ||, &&, ;
- *@telldes: the fd from which to read line input
- *@tellhist: the history line number count
+ *struct pseuarg - The pseudo-arguements to be passed to functions
+ *@firstarg: Argument string
+ *@comparg: String array
+ *@way: The string path denoting the current command
+ *@conarg: Argument count
+ *@cnterr: Error count
+ *@errn: Error code
+ *@cntline_flg: Input line count
+ *@progname: Filename denoting the program
+ *@exvar: Linked list copy
+ *@environ: //Ask about this one as well
+ *@hst: Node denoting the history
+ *@fake: Node denoting the alias
+ *@new_env: Checks for environment change
+ *@tellstat: Return status of previous command
+ *@cdbuffer: Pointer address
+ *@cdbuffertype: CMD_type ||, &&, ; //Hapa roho safi sijui
+ *@telldes: Fd denoting line input
+ *@tellhist: Number of history lines
  */
 typedef struct pseuarg
 {
@@ -211,10 +208,10 @@ typedef struct pseuarg
 	char **comparg;
 	char *way;
 	int conarg;
-	unsigned int cntline;
+	unsigned int cnterr;
 	int errn;
 	int cntline_flg;
-	char *tifit;
+	char *progname;
 	lst_m *exvar;
 	lst_m *hst;
 	lst_m *fake;
