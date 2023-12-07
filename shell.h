@@ -79,7 +79,7 @@ void loc_fork(pseuarg_ch *);
 char *strngcop(char *, char *);
 char *strngclone(const char *);
 void strngin(char *);
-int _putchar(char); /* consult sharon for changes. This line has a betty error */
+int _putchar(char);
 
 /* toem_parser.c */
 int cmdprt(info_t *, char *);
