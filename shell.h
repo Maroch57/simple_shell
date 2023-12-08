@@ -207,7 +207,7 @@ typedef struct pseuarg
 	char *arg;
 	char **argv;
 	char *way;
-	int conarg;
+	int argc;
 	unsigned int cnterr;
 	int errn;
 	int cntline_flg;
