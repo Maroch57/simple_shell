@@ -84,7 +84,7 @@ char *locpath(pseuarg_ch *, char *, char *);
 void putide(char *);
 int charins(char);
 int fputer(char c, int fd);
-int fndpt(char *str, int fd);
+int fndpt(char *strng, int fd);
 
 /* toem_exits.c */
 char *cppy_strng(char *, char *, int);

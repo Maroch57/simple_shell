@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- *cppy_strng - This command copies a string
+ *cppy_strng - This command copies the string
  *@strngdest: The string destination
  *@strngsrce: The string source
  *@n: Number of copied characters
@@ -31,13 +31,13 @@ char cppy_strng(char *strngdest, char *strngsrce, int n)
 }
 
 /**
- *strngmod - Concatenates strings
+ *strngmod - Executes concatenate function on respective strings
  *@strngdest: String destination
  *@strngsrce: String source
- *@n: Amount of memory
+ *@m: Amount of memory
  *Return: The string
  */
-char *strngmod(char *strngdest, char *strngsrce, int n)
+char *strngmod(char *strngdest, char *strngsrce, int m)
 {
 	int a, b;
 	char *st = strngdest;
@@ -46,29 +46,29 @@ char *strngmod(char *strngdest, char *strngsrce, int n)
 	b = 0;
 	while (strngdest[a] != '\0')
 		a++;
-	while (strngsrce[a] != '\0' && b < n)
+	while (strngsrce[a] != '\0' && b < m)
 	{
 		strngdest[a] = strngsrce[b];
 		a++;
 		b++;
 	}
-	if (b < n)
+	if (b < m)
 		strngdest[a] = '\0';
 	return (st);
 }
 
 /**
- *str_imp - Locates a character in the string
- *@st: The string
+ *str_imp - Distinguishes string characters
+ *@stst: The string
  *@c: The character
  *Return: The string
  */
-char *str_imp(char *st, char c)
+char *str_imp(char *stst, char c)
 {
 	do {
-		if (*st == c)
-			return (st);
-	} while (*st++ != '\0');
+		if (*stst == c)
+			return (stst);
+	} while (*stst++ != '\0');
 
 	return (NULL);
 }

@@ -3,11 +3,11 @@
 /**
  * histfile_fetch - Fetches the history file
  * @info: The structure denoting possible arguments
- * Return: History file string
+ * Return: The history file string
  */
 char *histfile_fetch(pseuarg_ch *info)
 {
-	char *buff, *directry;
+	char *directry, *buff;
 
 	directry = pop_env(info, "HOME=");
 	if (!directry)
@@ -23,15 +23,15 @@ char *histfile_fetch(pseuarg_ch *info)
 }
 
 /**
- * hist_updt - Creates new file, appends existing one
+ * hist_updt - Creates ands appends file
  * @info: The structure denoting possible arguments
  * Return: 1 if successful, -1 if unsuccessful
  */
 int hist_updt(pseuarg_ch *info)
 {
+	lst_m *node = NULL;
 	ssize_t fd;
 	char *file = histfile_fetch(info);
-	lst_m *node = NULL;
 
 	if (!file)
 		return (-1);
@@ -53,14 +53,14 @@ int hist_updt(pseuarg_ch *info)
 /**
  * rdhist - Reads history
  * @info: The structure denoting possible arguments
- * Return: The history count if successful, 0 if anything else
+ * Return: The history count
  */
 int rdhist(pseuarg_ch *info)
 {
 	int a, count = 0, final = 0;
-	ssize_t fd, mag, readlen = 0;
-	struct det pr;
+	ssize_t fd, readsize, readlen = 0;
 	char *buff = NULL, *file = histfile_fetch(info);
+	struct stat st;
 
 	if (!file)
 		return (0);
@@ -69,71 +69,69 @@ int rdhist(pseuarg_ch *info)
 	free(file);
 	if (fd == -1)
 		return (0);
-	if (!det(fd, &pr))
-		fsize = st.st_size;
-	if (fsize < 2)
+	if (!fstat(fd, &st))
+		readsize = st.st_size;
+	if (readsize < 2)
 		return (0);
-	buf = malloc(sizeof(char) * (fsize + 1));
-	if (!buf)
+	buff = malloc(sizeof(char) * (readsize + 1));
+	if (!buff)
 		return (0);
-	rdlen = read(fd, buf, fsize);
-	buf[fsize] = 0;
-	if (rdlen <= 0)
-		return (free(buf), 0);
+	readlen = read(fd, buff, readsize);
+	buff[readsize] = 0;
+	if (readlen <= 0)
+		return (free(buff), 0);
 	close(fd);
-	for (i = 0; i < fsize; i++)
-		if (buf[i] == '\n')
+	for (a = 0; a < readsize; a++)
+		if (buff[a] == '\n')
 		{
-			buf[i] = 0;
-			build_history_list(info, buf + last, linecount++);
-			last = i + 1;
+			buff[a] = 0;
+			histlst_b(info, buff + final, count++);
+			final = a + 1;
 		}
-	if (last != i)
-		build_history_list(info, buf + last, linecount++);
-	free(buf);
-	info->histcount = linecount;
-	while (info->histcount-- >= HIST_MAX)
-		delete_node_at_index(&(info->history), 0);
-	renumber_history(info);
-	return (info->histcount);
+	if (final != i)
+		histlst_b(info, buff + final, count++);
+	free(buff);
+	info->tellhist = count;
+	while (info->tellhist-- >= MAX_H)
+		indxnode_del(&(info->hst), 0);
+	nmber_hist(info);
+	return (info->tellhist);
 }
 
 /**
- * build_history_list - adds entry to a history linked list
- * @info: Structure containing potential arguments. Used to maintain
- * @buf: buffer
- * @linecount: the history linecount, histcount
- *
- * Return: Always 0
+ * histlst_b - History list entry
+ * @info: Structure denoting possible arguments
+ * @buff: The buffer
+ * @count: The linecount denoting the history
+ * Return: 0
  */
-int build_history_list(info_t *info, char *buf, int linecount)
+int histlst_b(pseuarg_ch *info, char *buff, int count)
 {
-	list_t *node = NULL;
+	lst_m *node = NULL;
 
-	if (info->history)
-		node = info->history;
-	add_node_end(&node, buf, linecount);
+	if (info->hst)
+		node = info->hst;
+	endnode_add(&node, buff, count);
 
-	if (!info->history)
-		info->history = node;
+	if (!info->hst)
+		info->hst = node;
 	return (0);
 }
 
 /**
- * renumber_history - renumbers the history linked list after changes
- * @info: Structure containing potential arguments. Used to maintain
- *
- * Return: the new histcount
+ * nmber_hist - Renumbers the list
+ * @info: Structure denoting possible arguments
+ * Return: 0
  */
-int renumber_history(info_t *info)
+int nmber_hist(pseuarg_ch *info)
 {
-	list_t *node = info->history;
-	int i = 0;
+	list_t *node = info->hst;
+	int a = 0;
 
 	while (node)
 	{
-		node->num = i++;
+		node->num = a++;
 		node = node->next;
 	}
-	return (info->histcount = i);
+	return (info->tellhist = a);
 }

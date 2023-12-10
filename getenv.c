@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
- * aqrenv - Returns the string array denoting the environment
+ * aqrenv - Returns the environment array
  * @info: The structure denoting possible arguments
  * Return: 0
  */
@@ -48,7 +48,7 @@ int envunp(pseuarg_ch *info, char *var)
 }
 
 /**
- * ptenv - Sets new environment variable, enhances existing one
+ * ptenv - Sets and enhances environment variables
  * @info: The structure denoting possible arguments
  * @var: The environment variable
  * @value: The string environment variable
