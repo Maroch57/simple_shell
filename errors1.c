@@ -10,8 +10,8 @@ int exst_err(char *s)
 	int u = 0;
 	unsigned long int rslt = 0;
 
-	if (*u == '+')
-		u++;  /* TODO: why does this make main return 255? */
+	if (*s == '+')
+		s++;
 	for (u = 0;  s[u] != '\0'; u++)
 	{
 		if (s[u] >= '0' && s[u] <= '9')
@@ -88,7 +88,6 @@ int disprnt(int inpt, int fd)
  * @numb: the number in subject.
  * @base_s: the base in subject.
  * @flags: arg flags in subject.
- *
  * Return: a string of chars.
  */
 char *conv_nmber(long int numb, int base_s, int flags)
@@ -120,19 +119,18 @@ char *conv_nmber(long int numb, int base_s, int flags)
 }
 
 /**
- * rm_comm - fn replaces first instance of '#' with null terminator..
- * @bufff: the address of string under modification.
- *
+ * rm_comm - Replaces first instance of '#' with null terminator..
+ * @buff: the address of string under modification.
  * Return: 0
  */
-void rm_comm(char *bufff)
+void rm_comm(char *buff)
 {
 	int r;
 
-	for (r = 0; bufff[r] != '\0'; r++)
-		if (bufff[r] == '#' && (!r || bufff[r - 1] == ' '))
+	for (r = 0; buff[r] != '\0'; r++)
+		if (buff[r] == '#' && (!r || buff[r - 1] == ' '))
 		{
-			bufff[r] = '\0';
+			buff[r] = '\0';
 			break;
 		}
 }

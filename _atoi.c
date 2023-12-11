@@ -26,9 +26,9 @@ int prser(char c, char *delim)
 }
 
 /**
- *bst_int - checks for alphabetic character
- *@c: The character to input
- *Return: 1 if c is alphabetic else, 0
+ *bst_int - Checks character
+ *@c: Inputed character
+ *Return: 1 else, 0
  */
 
 int bst_int(int c)
@@ -40,29 +40,29 @@ int bst_int(int c)
 }
 
 /**
- *atoi_t - converts a str to int.
- *@s: the string under conversion.
+ *atoi_t - Generates integer from string
+ *@s: Converted string
  *Return: 0 if unsuccessful.
  */
 
 int atoi_t(char *s)
 {
-	int i, sign = 1, flag = 0, outpt;
+	int a, sign = 1, warn = 0, outpt;
 	unsigned int rsult = 0;
 
-	for (i = 0;  s[i] != '\0' && flag != 2; i++)
+	for (a = 0;  s[a] != '\0' &&warn != 2; a++)
 	{
-		if (s[i] == '-')
+		if (s[a] == '-')
 			sign *= -1;
 
-		if (s[i] >= '0' && s[i] <= '9')
+		if (s[a] >= '0' && s[a] <= '9')
 		{
-			flag = 1;
+			warn = 1;
 			rsult *= 10;
-			rsult += (s[i] - '0');
+			rsult += (s[a] - '0');
 		}
-		else if (flag == 1)
-			flag = 2;
+		else if (warn == 1)
+			warn = 2;
 	}
 
 	if (sign == -1)

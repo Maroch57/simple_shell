@@ -3,40 +3,38 @@
 /**
  * bfer_inpt - buffer commands in subject.
  * @info: struct parameter in subject.
- * @bffer: buffer address in subject.
+ * @buff: buffer address in subject.
  * @leng: lngth var address.
- *
  * Return: no. of bytes present.
  */
-ssize_t bfer_inpt(pseuarg_ch *info, char **bffer, size_t *leng)
+ssize_t bfer_inpt(pseuarg_ch *info, char **buff, size_t *leng)
 {
 	ssize_t w = 0;
 	size_t en_lnth = 0;
 
 	if (!*leng)
 	{
-		free(*bffer);
-		*bffer = NULL;
+		free(*buff);
+		*buff = NULL;
 		signal(SIGINT, sigintHandler);
-#if USE_GETLINE
-		w = getline(bffer, &en_lnth, stdin);
+#if FOR_GETLINE
+		w = getline(buff, &en_lnth, stdin);
 #else
-		w = get_delim(info, bffer, &en_lnth);
+		w = get_delim(info, buff, &en_lnth);
 #endif
-		if (r > 0)
+		if (w > 0)
 		{
-			if ((*bffer)[r - 1] == '\n')
+			if ((*buff)[w - 1] == '\n')
 			{
-				(*bffer)[r - 1] = '\0';
-				r--;
+				(*buff)[w - 1] = '\0';
+				w--;
 			}
 			info->cntline_flg = 1;
-			rm_comm(*bffer);
-			histlst_b(info, *bffer, info->tellhist++);
-			/* if (_strchr(*buf, ';')) is this a command chain? */
+			rm_comm(*buff);
+			histlst_b(info, *buff, info->tellhist++);
 			{
 				*leng = w;
-				info->cdbuffer = bffer;
+				info->cdbuffer = buff;
 			}
 		}
 	}
@@ -51,58 +49,57 @@ ssize_t bfer_inpt(pseuarg_ch *info, char **bffer, size_t *leng)
  */
 ssize_t inpt_gt(pseuarg_ch *info)
 {
-	static char *bffer;
+	static char *buff;
 	static size_t f, g, leng;
 	ssize_t h = 0;
 	char **bf_ptr = &(info->arg), *q;
 
-	_putchar(BUF_FLUSH);
-	h = bfer_inpt(info, &bffer, &leng);
-	if (h == -1) /* EOF */
+	_putchar(BUFFER_FLUSH);
+	h = bfer_inpt(info, &buff, &leng);
+	if (h == -1)
 		return (-1);
 	if (leng)
 	{
 		g = f;
-		q = bffer + f; /* get pointer for return */
+		q = buff + f;
 
-		look_ch(info, bffer, &g, f, leng);
-		while (j < leng) /* iterate to semicolon or end */
+		look_ch(info, buff, &g, f, leng);
+		while (g < leng)
 		{
-			if (str_ch(info, bffer, &g))
+			if (str_ch(info, buff, &g))
 				break;
 			g++;
 		}
 
-		f = g + 1; /* increment past nulled ';'' */
-		if (f >= leng) /* reached end of buffer? */
+		f = g + 1;
+		if (f >= leng)
 		{
-			f = leng = 0; /* reset position and length */
-			info->cdbuffertype = CMD_NORM;
+			f = leng = 0;
+			info->cdbuffertype = NORMAL_CMND;
 		}
 
-		*bf_ptr = q; /* pass back pointer to current command position */
-		return (lngth_str(q)); /* return length of current command */
+		*bf_ptr = q;
+		return (lngth_str(q));
 	}
 
-	*bf_ptr = bffer;
+	*bf_ptr = buff;
 	return (h);
 }
 
 /**
  * rd_buf - reads a bffer in subject.
  * @info: struct param in subject.
- * @bffer: the bufferin subject.
+ * @buff: the bufferin subject.
  * @i: demonstrates size.
- *
  * Return: val.
  */
-ssize_t rd_buf(pseuarg_ch *info, char *bffer, size_t *i)
+ssize_t rd_buf(pseuarg_ch *info, char *buff, size_t *i)
 {
 	ssize_t h = 0;
 
 	if (*i)
 		return (0);
-	h = read(info->READ_BUFFER_SIZE, bffer, READ_BUF_SIZE);
+	h = read(info->telldes, buff, READ_BUFFER_SIZE);
 	if (h >= 0)
 		*i = h;
 	return (h);
@@ -113,12 +110,11 @@ ssize_t rd_buf(pseuarg_ch *info, char *bffer, size_t *i)
  * @info: struct param in subject.
  * @ptrr: ptr address to bffer.
  * @llength: ptr bffer size after allocation.
- *
- * Return: val.
+ * Return: val
  */
 int get_delim(pseuarg_ch *info, char **ptrr, size_t *llength)
 {
-	static char bffer[READ_BUF_SIZE];
+	static char buff[READ_BUFFER_SIZE];
 	static size_t m, leng;
 	size_t n;
 	ssize_t q = 0, d = 0;

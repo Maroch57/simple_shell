@@ -33,19 +33,6 @@ extern char **environ;
 #define FOR_STRTOK 0
 #define FOR_GETLINE 0
 
-/**
- * struct strng_l - A singly linked list
- * @nmber: The field denoting numbers
- * @strng: The string
- * @next: The pointer to the next node
- */
-typedef struct strng_l
-{
-	int nmber;
-	char *strng;
-	struct strng_l *next;
-} lst_m;
-
 #define FILE_H	".simple_shell_history"
 #define MAX_H	4096
 
@@ -59,6 +46,67 @@ typedef struct embedstr
 	char *cflg;
 	int (*resfunc)(pseuarg_ch *);
 } embed_str;
+
+/**
+ * struct strng_l - A singly linked list
+ * @nmber: The field denoting numbers
+ * @strng: The string
+ * @next: The pointer to the next node
+ */
+typedef struct strng_l
+{
+	int nmber;
+	char *strng;
+	struct strng_l *next;
+} lst_m;
+
+/**
+ *struct pseuarg - The pseudo-arguements to be passed to functions
+ *@arg: Argument string
+ *@argv: String array
+ *@way: The string path denoting the current command
+ *@argc: Argument count
+ *@cnterr: Error count
+ *@errn: Error code
+ *@cntline_flg: Input line count
+ *@progname: Filename denoting the program
+ *@exvar: Linked list copy
+ *@environ: //Ask about this one as well
+ *@hst: Node denoting the history
+ *@fake: Node denoting the alias
+ *@new_env: Checks for environment change
+ *@tellstat: Return status of previous command
+ *@cdbuffer: Pointer address
+ *@cdbuffertype: CMD_type ||, &&, ; //Hapa roho safi sijui
+ *@telldes: Fd denoting line input
+ *@tellhist: Number of history lines
+ */
+typedef struct pseuarg
+{
+	char *arg;
+	char **argv;
+	char *way;
+	int argc;
+	unsigned int cnterr;
+	int errn;
+	int cntline_flg;
+	char *progname;
+	lst_m *exvar;
+	lst_m *hst;
+	lst_m *fake;
+	char **environ; //Ask Sharon if this should be changed
+	int new_env;
+	int tellstat;
+
+	char **cdbuffer; /* pointer to cmd ; chain buffer, for memory mangement */
+	int cdbuffertype;
+	int telldes;
+	int tellhist;
+} pseuarg_ch;
+
+#define INIT_GET \
+{NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
+	0, 0, 0}
 
 /* loophsh.c */
 int shelloop(char **);
@@ -180,53 +228,5 @@ lst_m *endnode_add(lst_m **, const char *, int);
 size_t lststr_prnt(const lst_m *);
 int indxnode_del(lst_m **, unsigned int);
 void freelst(lst_m **);
-
-/**
- *struct pseuarg - The pseudo-arguements to be passed to functions
- *@arg: Argument string
- *@argv: String array
- *@way: The string path denoting the current command
- *@argc: Argument count
- *@cnterr: Error count
- *@errn: Error code
- *@cntline_flg: Input line count
- *@progname: Filename denoting the program
- *@exvar: Linked list copy
- *@environ: //Ask about this one as well
- *@hst: Node denoting the history
- *@fake: Node denoting the alias
- *@new_env: Checks for environment change
- *@tellstat: Return status of previous command
- *@cdbuffer: Pointer address
- *@cdbuffertype: CMD_type ||, &&, ; //Hapa roho safi sijui
- *@telldes: Fd denoting line input
- *@tellhist: Number of history lines
- */
-typedef struct pseuarg
-{
-	char *arg;
-	char **argv;
-	char *way;
-	int argc;
-	unsigned int cnterr;
-	int errn;
-	int cntline_flg;
-	char *progname;
-	lst_m *exvar;
-	lst_m *hst;
-	lst_m *fake;
-	char **environ; //Ask Sharon if this should be changed
-	int new_env;
-	int tellstat;
-
-	char **cdbuffer; /* pointer to cmd ; chain buffer, for memory mangement */
-	int cdbuffertype; /* CMD_type ||, &&, ; */
-	int telldes;
-	int tellhist;
-} pseuarg_ch;
-
-#define INIT_GET \
-{NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
-	0, 0, 0} //consult sharon if the digits need change
 
 #endif

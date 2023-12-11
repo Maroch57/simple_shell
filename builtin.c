@@ -1,10 +1,9 @@
 #include "shell.h"
 
 /**
- * exist_sts - exits shell.
+ * exist_sts - The command to exit the shell
  * @info: Structure containing constant function prototype.
- *  Return: exit status example -
- *         (0) if info.argv[0] != "exit"
+ * Return: Respective exit status
  */
 int exist_sts(pseuarg_ch *info)
 {
@@ -12,7 +11,7 @@ int exist_sts(pseuarg_ch *info)
 
 	if (info->argv[1])
 	{
-		ext_stat = _erratoi(info->argv[1]);
+		ext_stat = exst_err(info->argv[1]);
 		if (ext_stat == -1)
 		{
 			info->tellstat = 2;
@@ -45,7 +44,7 @@ int cd_mine(pseuarg_ch *info)
 	{
 		directry = pop_env(info, "HOME=");
 		if (!directry)
-			retchld = /* TODO: what should this be? */
+			retchld =
 				ch_dir((directry = pop_env(info, "PWD=")) ? directry : "/");
 		else
 			retchld = ch_dir(directry);
@@ -59,7 +58,7 @@ int cd_mine(pseuarg_ch *info)
 			return (1);
 		}
 		strngin(pop_env(info, "OLDPWD=")), _putchar('\n');
-		retchld = /* TODO: what should this be? */
+		retchld =
 			ch_dir((directry = pop_env(info, "OLDPWD=")) ? directry : "/");
 	}
 	else
@@ -78,7 +77,7 @@ int cd_mine(pseuarg_ch *info)
 }
 
 /**
- * help_inf - changes current directory.
+ * help_inf - Changes current directory.
  * @info: Structure containing potential fn prototype.
  *  Return: 0.
  */

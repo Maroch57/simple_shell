@@ -19,8 +19,8 @@ void putide(char *strng)
 }
 
 /**
- * charins - Prints the character c to stderr
- * @c: The character to be printed //Ask if this c should be changed
+ * charins - Prints the char c
+ * @c: The character to be printed
  * Return: 1 if success, -1 if error
  */
 int charins(char c)
@@ -39,9 +39,9 @@ int charins(char c)
 }
 
 /**
- * fputer - Writes the character c to the file descriptor
+ * fputer - Prints the char c to the file descriptor
  * @c: The character to be printed
- * @fd: The file descriptor in question
+ * @fd: The file descriptor
  * Return: 1 if success, -1 if error
  */
 int fputer(char c, int fd)
@@ -49,7 +49,7 @@ int fputer(char c, int fd)
 	static int n;
 	static char buff[WRITE_BUFFER_SIZE];
 
-	if (c == BUFFER_FLUSH || i >= WRITE_BUFFER_SIZE)
+	if (c == BUFFER_FLUSH || n >= WRITE_BUFFER_SIZE)
 	{
 		write(fd, buff, n);
 		n = 0;

@@ -36,7 +36,7 @@ char *pop_env(pseuarg_ch *info, const char *vname)
 /**
  * good_env - configs/modif new environment variables.
  * @info: struct containing potential arg prototypes.
- *  Return: 0
+ * Return: 0
  */
 int good_env(pseuarg_ch *info)
 {
@@ -80,8 +80,8 @@ int fill_env(pseuarg_ch *info)
 	lst_m *node = NULL;
 	size_t d;
 
-	for (d = 0; envirn[d]; i++)
-		endnode_add(&node, envirn[d], 0);
+	for (d = 0; environ[d]; d++)
+		endnode_add(&node, environ[d], 0);
 	info->exvar = node;
 	return (0);
 }

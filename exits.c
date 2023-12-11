@@ -4,34 +4,34 @@
  *cppy_strng - This command copies the string
  *@strngdest: The string destination
  *@strngsrce: The string source
- *@n: Number of copied characters
+ *@nm: Number of copied characters
  *Return: The string
  */
-char cppy_strng(char *strngdest, char *strngsrce, int n)
+char cppy_strng(char *strngdest, char *strngsrce, int nm)
 {
 	int a, b;
-	char *st = strngdest;
+	char *stst = strngdest;
 
 	a = 0;
-	while (strngsrce[a] != '\0' && a < n - 1)
+	while (strngsrce[a] != '\0' && a < nm - 1)
 	{
 		strngdest[a] = strngsrce[a];
 		a++;
 	}
-	if (a < n)
+	if (a < nm)
 	{
 		b = a;
-		while (b < n)
+		while (b < nm)
 		{
 			strngdest[b] = '\0';
 			b++;
 		}
 	}
-	return (st);
+	return (stst);
 }
 
 /**
- *strngmod - Executes concatenate function on respective strings
+ *strngmod - Executes a link function on respective strings
  *@strngdest: String destination
  *@strngsrce: String source
  *@m: Amount of memory
@@ -40,7 +40,7 @@ char cppy_strng(char *strngdest, char *strngsrce, int n)
 char *strngmod(char *strngdest, char *strngsrce, int m)
 {
 	int a, b;
-	char *st = strngdest;
+	char *stst = strngdest;
 
 	a = 0;
 	b = 0;
@@ -54,7 +54,7 @@ char *strngmod(char *strngdest, char *strngsrce, int m)
 	}
 	if (b < m)
 		strngdest[a] = '\0';
-	return (st);
+	return (stst);
 }
 
 /**

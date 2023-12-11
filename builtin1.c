@@ -19,16 +19,16 @@ int hist_rep(pseuarg_ch *info)
  */
 int rmalias(pseuarg_ch *info, char *strng)
 {
-	char *p, d;
+	char *q, d;
 	int rtrn;
 
-	p = str_imp(strng, '=');
-	if (!p)
+	q = str_imp(strng, '=');
+	if (!q)
 		return (1);
-	d = *p;
-	*p = 0;
+	d = *q;
+	*q = 0;
 	rtrn = indxnode_del(&(info->fake), indx_gt(info->fake, strt_strng(info->fake, strng, -1)));
-	*p = d;
+	*q = d;
 	return (rtrn);
 }
 
@@ -40,12 +40,12 @@ int rmalias(pseuarg_ch *info, char *strng)
  */
 int putalias(pseuarg_ch *info, char *strng)
 {
-	char *p;
+	char *q;
 
-	p = str_imp(strng, '=');
-	if (!p)
+	q = str_imp(strng, '=');
+	if (!q)
 		return (1);
-	if (!*++p)
+	if (!*++q)
 		return (rmalias(info, strng));
 
 	rmalias(info, strng);
@@ -59,15 +59,15 @@ int putalias(pseuarg_ch *info, char *strng)
  */
 int prntalias(lst_m *node)
 {
-	char *p = NULL, *x = NULL;
+	char *q = NULL, *x = NULL;
 
 	if (node)
 	{
-		p = str_imp(node->strng, '=');
-		for (x = node->strng; x <= p; x++)
+		q = str_imp(node->strng, '=');
+		for (x = node->strng; x <= q; x++)
 			_putchar(*x);
 		_putchar('\'');
-		strngin(p + 1);
+		strngin(q + 1);
 		strngin("'\n");
 		return (0);
 	}
@@ -82,7 +82,7 @@ int prntalias(lst_m *node)
 int alum_hist(pseuarg_ch *info)
 {
 	int n = 0;
-	char *p = NULL;
+	char *q = NULL;
 	lst_m *node = NULL;
 
 	if (info->argc == 1)
@@ -97,8 +97,8 @@ int alum_hist(pseuarg_ch *info)
 	}
 	for (n = 1; info->argv[n]; n++)
 	{
-		p = str_imp(info->argv[n], '=');
-		if (p)
+		q = str_imp(info->argv[n], '=');
+		if (q)
 			putalias(info, info->argv[n]);
 		else
 			prntalias(strt_strng(info->fake, info->argv[n], '='));
