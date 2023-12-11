@@ -53,7 +53,7 @@ int putalias(pseuarg_ch *info, char *strng)
 }
 
 /**
- * prntalias - The command to print an alias string 
+ * prntalias - The command to print an alias string
  * @node: The node denoting the alias
  * Return: 0 if success, 1 if error
  */
