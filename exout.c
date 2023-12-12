@@ -7,7 +7,7 @@
  *@nm: Number of copied characters
  *Return: The string
  */
-char cppy_strng(char *strngdest, char *strngsrce, int nm)
+char *cppy_strng(char *strngdest, char *strngsrce, int nm)
 {
 	int a, b;
 	char *stst = strngdest;

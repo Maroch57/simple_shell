@@ -86,7 +86,7 @@ size_t prnt_lst(const lst_m *pr)
  *
  * Return: void
  */
-lst_m *strng_lst(lst_m *nod, char *prefix, char c)
+lst_m *strt_strng(lst_m *nod, char *prefix, char c)
 {
 	char *m = NULL;
 

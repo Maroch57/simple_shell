@@ -8,7 +8,7 @@
  *
  * Return: 1 if successful,else 0.
  */
-int is_chain(pseuarg_ch *info, char *buf, size_t *potr)
+int str_ch(pseuarg_ch *info, char *buf, size_t *potr)
 {
 	size_t k = *potr;
 

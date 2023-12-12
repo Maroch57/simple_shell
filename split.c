@@ -47,7 +47,7 @@ char *chardup(char *stpth, int inds, int sind)
  * @findcmd: The located cmd
  * Return: Path
  */
-char *locpath(pseuarg_ch *info, char stpth, char *findcmd)
+char *locpath(pseuarg_ch *info, char *stpth, char *findcmd)
 {
 	int a = 0, i_nitial = 0;
 	char *way;

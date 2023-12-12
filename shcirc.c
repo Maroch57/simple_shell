@@ -72,7 +72,7 @@ int go_emb(pseuarg_ch *info)
 		if (strn_cmp(info->argv[0], tbl_build[g].cflg) == 0)
 		{
 			info->cnterr++;
-			retn_b = tbl_build[g].func(info);
+			retn_b = tbl_build[g].resfunc(info);
 			break;
 		}
 	return (retn_b);

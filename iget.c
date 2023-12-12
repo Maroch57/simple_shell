@@ -67,8 +67,8 @@ void infree(pseuarg_ch *info, int fldall)
 		dmfree(info->environ);
 			info->environ = NULL;
 		mem_free((void **)info->cdbuffer);
-		if (info->READ_BUFFER_SIZE > 2)
-			close(info->READ_BUFFER_SIZE);
+		if (info->telldes > 2)
+			close(info->telldes);
 		_putchar(BUFFER_FLUSH);
 	}
 }

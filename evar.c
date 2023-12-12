@@ -65,7 +65,7 @@ int bad_env(pseuarg_ch *info)
 		return (1);
 	}
 	for (d = 1; d <= info->argc; d++)
-		bad_env(info, info->argv[d]);
+		envunp(info, info->argv[d]);
 
 	return (0);
 }
