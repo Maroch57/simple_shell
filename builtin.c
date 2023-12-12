@@ -45,9 +45,9 @@ int cd_mine(pseuarg_ch *info)
 		directry = pop_env(info, "HOME=");
 		if (!directry)
 			retchld =
-				ch_dir((directry = pop_env(info, "PWD=")) ? directry : "/");
+				chdir((directry = pop_env(info, "PWD=")) ? directry : "/");
 		else
-			retchld = ch_dir(directry);
+			retchld = chdir(directry);
 	}
 	else if (strn_cmp(info->argv[1], "-") == 0)
 	{
@@ -59,10 +59,10 @@ int cd_mine(pseuarg_ch *info)
 		}
 		strngin(pop_env(info, "OLDPWD=")), _putchar('\n');
 		retchld =
-			ch_dir((directry = pop_env(info, "OLDPWD=")) ? directry : "/");
+			chdir((directry = pop_env(info, "OLDPWD=")) ? directry : "/");
 	}
 	else
-		retchld = ch_dir(info->argv[1]);
+		retchld = chdir(info->argv[1]);
 	if (retchld == -1)
 	{
 		errorprnt(info, "can't cd to ");

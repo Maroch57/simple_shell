@@ -29,17 +29,17 @@ char **strng_lst(lst_m *phead)
 	lst_m *node = phead;
 	size_t y = lngth_lst(phead), z;
 	char **sstrs;
-	char *strr;
+	char *strng;
 
 	if (!phead || !y)
 		return (NULL);
 	sstrs = malloc(sizeof(char *) * (y + 1));
 	if (!sstrs)
 		return (NULL);
-	for (i = 0; node; node = node->next, y++)
+	for (y = 0; node; node = node->next, y++)
 	{
-		strr = malloc(lngth_str(node->strr) + 1);
-		if (!strr)
+		strng = malloc(lngth_str(node->strng) + 1);
+		if (!strng)
 		{
 			for (z = 0; z < y; z++)
 				free(sstrs[z]);
@@ -47,8 +47,8 @@ char **strng_lst(lst_m *phead)
 			return (NULL);
 		}
 
-		strr = strngcop(strr, node->strr);
-		sstrs[y] = strr;
+		strng = strngcop(strng, node->strng);
+		sstrs[y] = strng;
 	}
 	sstrs[y] = NULL;
 	return (sstrs);
@@ -67,7 +67,7 @@ size_t prnt_lst(const lst_m *pr)
 
 	while (pr)
 	{
-		strngin(conv_nmber(pr->num, 10, 0));
+		strngin(conv_nmber(pr->nmber, 10, 0));
 		_putchar(':');
 		_putchar(' ');
 		strngin(pr->strng ? pr->strng : "(nil)");

@@ -30,7 +30,7 @@ int main(int ac, char **av)
 				putide(": 0: Can't open ");
 				putide(av[1]);
 				charins('\n');
-				charins(BUF_FLUSH);
+				charins(BUFFER_FLUSH);
 				exit(127);
 			}
 			return (EXIT_FAILURE);

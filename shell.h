@@ -45,7 +45,7 @@ typedef struct embedstr
 {
 	char *cflg;
 	int (*resfunc)(pseuarg_ch *);
-} embed_str;
+}	embed_str;
 
 /**
  * struct strng_l - A singly linked list
@@ -58,7 +58,7 @@ typedef struct strng_l
 	int nmber;
 	char *strng;
 	struct strng_l *next;
-} lst_m;
+}	lst_m;
 
 /**
  *struct pseuarg - The pseudo-arguements to be passed to functions
@@ -102,7 +102,7 @@ typedef struct pseuarg
 	int cdbuffertype;
 	int telldes;
 	int tellhist;
-} pseuarg_ch;
+}	pseuarg_ch;
 
 #define INIT_GET \
 {NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \

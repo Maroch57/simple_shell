@@ -36,7 +36,7 @@ int is_chain(pseuarg_ch *info, char *buf, size_t *potr)
 }
 
 /**
- * look_ch - indluences chaining process based on last status.
+ * look_ch - indluences chaining processes.
  * @info: struct parameter in subject.
  * @buf: buffer character in subject.
  * @m: current position buffer address.
@@ -51,7 +51,7 @@ void look_ch(pseuarg_ch *info, char *buf, size_t *m, size_t n, size_t lngth)
 
 	if (info->cdbuffertype == AND_CMND)
 	{
-		if (info->status)
+		if (info->tellstat)
 		{
 			buf[n] = 0;
 			q = lngth;
@@ -59,7 +59,7 @@ void look_ch(pseuarg_ch *info, char *buf, size_t *m, size_t n, size_t lngth)
 	}
 	if (info->cdbuffertype == OR_CMND)
 	{
-		if (!info->status)
+		if (!info->tellstat)
 		{
 			buf[n] = 0;
 			q = lngth;
@@ -83,7 +83,7 @@ int rp_alias(pseuarg_ch *info)
 
 	for (a = 0; a < 10; a++)
 	{
-		node = strt_stng(info->fake, info->argv[0], '=');
+		node = strt_strng(info->fake, info->argv[0], '=');
 		if (!node)
 			return (0);
 		free(info->argv[0]);
@@ -111,13 +111,13 @@ int rp_vstr(pseuarg_ch *info)
 
 	for (v = 0; info->argv[v]; v++)
 	{
-		if (info->argv[v][0] != '$' || !info->argv[i][1])
+		if (info->argv[v][0] != '$' || !info->argv[v][1])
 			continue;
 
 		if (!strn_cmp(info->argv[v], "$?"))
 		{
 			strn_chng(&(info->argv[v]),
-				strngclone(conv_nmber(info->status, 10, 0)));
+				strngclone(conv_nmber(info->tellstat, 10, 0)));
 			continue;
 		}
 		if (!strn_cmp(info->argv[v], "$$"))
@@ -126,7 +126,7 @@ int rp_vstr(pseuarg_ch *info)
 				strngclone(conv_nmber(getpid(), 10, 0)));
 			continue;
 		}
-		node = strt_stng(info->exvar, &info->argv[v][1], '=');
+		node = strt_strng(info->exvar, &info->argv[v][1], '=');
 		if (node)
 		{
 			strn_chng(&(info->argv[v]),

@@ -75,5 +75,5 @@ int fndpt(char *strng, int fd)
 	{
 		n += fputer(*strng++, fd);
 	}
-	return (i);
+	return (n);
 }

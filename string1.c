@@ -36,7 +36,7 @@ char *strngclone(const char *strr)
 	if (strr == NULL)
 		return (NULL);
 	while (*strr++)
-		length++;
+		lngth++;
 	retn = malloc(sizeof(char) * (lngth + 1));
 	if (!retn)
 		return (NULL);
@@ -78,7 +78,7 @@ int _putchar(char c)
 	if (k == BUFFER_FLUSH || k >= WRITE_BUFFER_SIZE)
 	{
 		write(1, buf, k);
-		i = 0;
+		k = 0;
 	}
 	if (c != BUFFER_FLUSH)
 		buf[k++] = c;

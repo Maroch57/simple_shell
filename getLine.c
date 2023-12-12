@@ -16,7 +16,7 @@ ssize_t bfer_inpt(pseuarg_ch *info, char **buff, size_t *leng)
 	{
 		free(*buff);
 		*buff = NULL;
-		signal(SIGINT, sigintHandler);
+		signal(SIGINT, mngint);
 #if FOR_GETLINE
 		w = getline(buff, &en_lnth, stdin);
 #else
@@ -87,7 +87,7 @@ ssize_t inpt_gt(pseuarg_ch *info)
 }
 
 /**
- * rd_buf - reads a bffer in subject.
+ * rd_buf - reads a buff in subject.
  * @info: struct param in subject.
  * @buff: the bufferin subject.
  * @i: demonstrates size.
@@ -108,8 +108,8 @@ ssize_t rd_buf(pseuarg_ch *info, char *buff, size_t *i)
 /**
  * get_delim - fn gets next input line from stndard input.
  * @info: struct param in subject.
- * @ptrr: ptr address to bffer.
- * @llength: ptr bffer size after allocation.
+ * @ptrr: ptr address to buff.
+ * @llength: ptr buff size after allocation.
  * Return: val
  */
 int get_delim(pseuarg_ch *info, char **ptrr, size_t *llength)
@@ -126,20 +126,20 @@ int get_delim(pseuarg_ch *info, char **ptrr, size_t *llength)
 	if (m == leng)
 		m = leng = 0;
 
-	q = rd_buf(info, bffer, &leng);
-	if (q == -1 || (q == 0 && len == 0))
+	q = rd_buf(info, buff, &leng);
+	if (q == -1 || (q == 0 && leng == 0))
 		return (-1);
 
-	a = str_imp(bffer + m, '\n');
-	n = a ? 1 + (unsigned int)(a - bffer) : leng;
-	new_pt = _realloc(t, d, d ? d + n : n + 1);
+	a = str_imp(buff + m, '\n');
+	n = a ? 1 + (unsigned int)(a - buff) : leng;
+	new_pt = mem_ralloc(t, d, d ? d + n : n + 1);
 	if (!new_pt) /* MALLOC FAILURE! */
 		return (t ? free(t), -1 : -1);
 
 	if (d)
-		_strncat(new_p, bffer + m, n - m);
+		strngmod(new_pt, buff + m, n - m);
 	else
-		_strncpy(new_pt, bffer + m, n - m + 1);
+		cppy_strng(new_pt, buff + m, n - m + 1);
 
 	d += n - m;
 	m = n;
@@ -152,14 +152,14 @@ int get_delim(pseuarg_ch *info, char **ptrr, size_t *llength)
 }
 
 /**
- * sigintHandler - it blocks control C shortcut.
+ * mngint - it blocks control C shortcut.
  * @sig_nmber: signal no.
  *
  * Return: NULL.
  */
-void sigintHandler(__attribute__((unused))int sig_nmber)
+void mngint(__attribute__((unused))int sig_nmber)
 {
 	strngin("\n");
 	strngin("$ ");
-	_putchar(BUF_FLUSH);
+	_putchar(BUFFER_FLUSH);
 }

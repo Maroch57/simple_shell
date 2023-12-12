@@ -98,13 +98,13 @@ char *conv_nmber(long int numb, int base_s, int flags)
 	char *pter;
 	unsigned long m = numb;
 
-	if (!(flags & CONVERT_UNSIGNED) && numb < 0)
+	if (!(flags & CONVERT_UNINT) && numb < 0)
 	{
 		m = -numb;
 		indic = '-';
 
 	}
-	arr = flags & CONVERT_LOWERCASE ? "0123456789abcdef" : "0123456789ABCDEF";
+	arr = flags & CONVERT_LOWER ? "0123456789abcdef" : "0123456789ABCDEF";
 	pter = &bffer[49];
 	*pter = '\0';
 

@@ -88,7 +88,7 @@ int rdhist(pseuarg_ch *info)
 			histlst_b(info, buff + final, count++);
 			final = a + 1;
 		}
-	if (final != i)
+	if (final != a)
 		histlst_b(info, buff + final, count++);
 	free(buff);
 	info->tellhist = count;
@@ -125,12 +125,12 @@ int histlst_b(pseuarg_ch *info, char *buff, int count)
  */
 int nmber_hist(pseuarg_ch *info)
 {
-	list_t *node = info->hst;
+	lst_m *node = info->hst;
 	int a = 0;
 
 	while (node)
 	{
-		node->num = a++;
+		node->nmber = a++;
 		node = node->next;
 	}
 	return (info->tellhist = a);

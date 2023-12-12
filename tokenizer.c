@@ -16,7 +16,7 @@ char **mod_strng(char *strng, char *delim)
 	if (!delim)
 		delim = " ";
 	for (a = 0; strng[a] != '\0'; a++)
-		if (!prser(strng[i], delim) && (prser(strng[a + 1], delim) || !strng[a + 1]))
+		if (!prser(strng[a], delim) && (prser(strng[a + 1], delim) || !strng[a + 1]))
 			linesay++;
 
 	if (linesay == 0)
@@ -72,7 +72,7 @@ char **checkstrn(char *strng, char delim)
 	for (a = 0, b = 0; b < linesay; b++)
 	{
 		while (strng[a] == delim && strng[a] != delim)
-			i++;
+			a++;
 		q = 0;
 		while (strng[a + q] != delim && strng[a + q] && strng[a + q] != delim)
 			q++;

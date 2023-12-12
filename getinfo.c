@@ -53,8 +53,8 @@ void infree(pseuarg_ch *info, int fldall)
 {
 	dmfree(info->argv);
 	info->argv = NULL;
-	info->path = NULL;
-	if (fdall)
+	info->way = NULL;
+	if (fldall)
 	{
 		if (!info->cdbuffer)
 			free(info->arg);

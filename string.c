@@ -49,7 +49,7 @@ char *at_strt(const char *getit, const char *forme)
 {
 	while (*forme)
 		if (*forme++ != *getit++)
-			return (NULL);/
+			return (NULL);
 	return ((char *)getit);
 }
 

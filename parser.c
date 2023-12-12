@@ -61,7 +61,7 @@ char *locpath(pseuarg_ch *info, char stpth, char *findcmd)
 	}
 	while (1)
 	{
-		if (!stpth[a] || stpth[i] == ':')
+		if (!stpth[a] || stpth[a] == ':')
 		{
 			way = chardup(stpth, i_nitial, a);
 			if (!*way)

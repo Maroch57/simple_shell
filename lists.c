@@ -116,7 +116,7 @@ int indxnode_del(lst_m **h, unsigned int ind)
 	node = *h;
 	while (node)
 	{
-		if (i == ind)
+		if (a == ind)
 		{
 			tdtd->next = node->next;
 			free(node->strng);
