@@ -178,7 +178,7 @@ int ptenv(pseuarg_ch *, char *, char *);
 int actv_int(pseuarg_ch *);
 int prser(char, char *);
 int bst_int(int);
-int atoi_t(char *);
+int genint(char *);
 
 /* evar.c */
 char *pop_env(pseuarg_ch *, const char *);

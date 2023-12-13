@@ -1,11 +1,10 @@
 #include "shell.h"
 
 /**
- * strngcop - fn used to copy a string.
- * @destn: destination in subject.
- * @srce: the source in subject.
- *
- * Return: a ptr to destination.
+ * strngcop - Function used to copy a string.
+ * @destn: Destination in subject.
+ * @srce: Source in subject.
+ * Return: A ptr to the destination.
  */
 char *strngcop(char *destn, char *srce)
 {
@@ -23,10 +22,9 @@ char *strngcop(char *destn, char *srce)
 }
 
 /**
- * strngclone - fn duplicates a strng.
- * @strr: strng under duplication.
- *
- * Return: a ptr to the duplicated strng.
+ * strngclone - Funtion that duplicates a strng.
+ * @strr: Strng under duplication.
+ * Return: A ptr to the resulting strng.
  */
 char *strngclone(const char *strr)
 {
@@ -46,9 +44,8 @@ char *strngclone(const char *strr)
 }
 
 /**
- *strngin - ensures an input string is printed.
- *@sstr: printed strng.
- *
+ *strngin - Ensures an input string is printed.
+ *@sstr: Printed strng.
  * Return: void.
  */
 void strngin(char *sstr)
@@ -65,12 +62,11 @@ void strngin(char *sstr)
 }
 
 /**
- * _putchar - fn writes a char c to standard output console.
- * @c: char to be printed.
- *
- * Return: if successful 1 else, 0.
+ * _putchar - Function to write a char to standard output console.
+ * @charinp: The char to be printed.
+ * Return: If successful 1 else, 0.
  */
-int _putchar(char c)
+int _putchar(char charinp)
 {
 	static int k;
 	static char buff[WRITE_BUFFER_SIZE];
@@ -80,7 +76,7 @@ int _putchar(char c)
 		write(1, buff, k);
 		k = 0;
 	}
-	if (c != BUFFER_FLUSH)
-		buff[k++] = c;
+	if (charinp != BUFFER_FLUSH)
+		buff[k++] = charinp;
 	return (1);
 }

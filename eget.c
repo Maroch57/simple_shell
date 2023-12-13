@@ -19,22 +19,22 @@ char **aqrenv(pseuarg_ch *feed)
 /**
  * envunp - Gets rid of the environment variable
  * @feed: The structure denoting possible arguments
- * @var: The environment variable
+ * @evible: The environment variable
  * Return: 1
  */
-int envunp(pseuarg_ch *feed, char *var)
+int envunp(pseuarg_ch *feed, char *evible)
 {
 	lst_m *node = feed->exvar;
 	size_t a = 0;
-	char *p;
+	char *q;
 
-	if (!node || !var)
+	if (!node || !evible)
 		return (0);
 
 	while (node)
 	{
-		p = at_strt(node->strng, var);
-		if (p && *p == '=')
+		q = at_strt(node->strng, evible);
+		if (q && *q == '=')
 		{
 			feed->new_env = indxnode_del(&(feed->exvar), a);
 			a = 0;
@@ -50,30 +50,30 @@ int envunp(pseuarg_ch *feed, char *var)
 /**
  * ptenv - Sets and enhances environment variables
  * @feed: The structure denoting possible arguments
- * @var: The environment variable
- * @value: The string environment variable
+ * @evible: The environment variable
+ * @strev: The string environment variable
  * Return: 0
  */
-int ptenv(pseuarg_ch *feed, char *var, char *value)
+int ptenv(pseuarg_ch *feed, char *evible, char *strev)
 {
 	char *buff = NULL;
 	lst_m *node;
-	char *p;
+	char *q;
 
-	if (!var || !value)
+	if (!evible || !strev)
 		return (0);
 
-	buff = malloc(lngth_str(var) + lngth_str(value) + 2);
+	buff = malloc(lngth_str(evible) + lngth_str(strev) + 2);
 	if (!buff)
 		return (1);
-	strngcop(buff, var);
+	strngcop(buff, evible);
 	strn_cat(buff, "=");
-	strn_cat(buff, value);
+	strn_cat(buff, strev);
 	node = feed->exvar;
 	while (node)
 	{
-		p = at_strt(node->strng, var);
-		if (p && *p == '=')
+		q = at_strt(node->strng, evible);
+		if (q && *q == '=')
 		{
 			free(node->strng);
 			node->strng = buff;

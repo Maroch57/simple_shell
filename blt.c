@@ -28,17 +28,17 @@ int exist_sts(pseuarg_ch *feed)
 }
 
 /**
- * cd_mine - changes current process directory.
- * @feed: Structure containing potential fn prototype.
- *  Return: 0.
+ * cd_mine - Shifts current process directory.
+ * @feed: Structure denoting potential fn prototype.
+ * Return: 0.
  */
 int cd_mine(pseuarg_ch *feed)
 {
-	char *s, *directry, buffer[1024];
+	char *sst, *directry, buffer[1024];
 	int retchld;
 
-	s = getcwd(buffer, 1024);
-	if (!s)
+	sst = getcwd(buffer, 1024);
+	if (!sst)
 		strngin("TODO: >>getcwd failure emsg here<<\n");
 	if (!feed->argv[1])
 	{
@@ -53,7 +53,7 @@ int cd_mine(pseuarg_ch *feed)
 	{
 		if (!pop_env(feed, "OLDPWD="))
 		{
-			strngin(s);
+			strngin(sst);
 			_putchar('\n');
 			return (1);
 		}
@@ -79,7 +79,7 @@ int cd_mine(pseuarg_ch *feed)
 /**
  * help_inf - Changes current directory.
  * @feed: Structure containing potential fn prototype.
- *  Return: 0.
+ * Return: 0.
  */
 int help_inf(pseuarg_ch *feed)
 {

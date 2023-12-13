@@ -1,10 +1,9 @@
 #include "shell.h"
 
 /**
- * main - point of entry in a prog
- * @ac: argument count.
- * @av: argument vector.
- *
+ * main - Point of entry
+ * @ac: Argument count.
+ * @av: Argument vector.
  * Return: 0 if successful , else 1 on error
  */
 int main(int ac, char **av)

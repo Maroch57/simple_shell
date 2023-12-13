@@ -3,7 +3,6 @@
 /**
  * lngth_str - Determines string length
  * @r: String
- *
  * Return: String length
  */
 int lngth_str(char *r)
@@ -40,7 +39,7 @@ int strn_cmp(char *r1, char *r2)
 }
 
 /**
- * at_strt - checks if needle starts with haystack
+ * at_strt - Checks given requirement
  * @getit: The string to locate
  * @forme: The string to be located
  * Return: String
@@ -55,8 +54,8 @@ char *at_strt(const char *getit, const char *forme)
 
 /**
  * strn_cat - String concatenator
- * @strngdest: The destination buffer
- * @strngsrce: The source buffer
+ * @strngdest: The destination buff
+ * @strngsrce: The source buff
  * Return: Destination pointer
  */
 char *strn_cat(char *strngdest, char *strngsrce)

@@ -3,20 +3,20 @@
 /**
  * mod_strng - Splits string
  * @strng: Structure denoting possible arguments
- * @delim: Delimeter
+ * @spec: Delimeter
  * Return: Pointer
  */
-char **mod_strng(char *strng, char *delim)
+char **mod_strng(char *strng, char *spec)
 {
 	int a, b, q, z, linesay = 0;
 	char **stst;
 
 	if (strng == NULL || strng[0] == 0)
 		return (NULL);
-	if (!delim)
-		delim = " ";
+	if (!spec)
+		spec = " ";
 	for (a = 0; strng[a] != '\0'; a++)
-		if (!prser(strng[a], delim) && (prser(strng[a + 1], delim) || !strng[a + 1]))
+		if (!prser(strng[a], spec) && (prser(strng[a + 1], spec) || !strng[a + 1]))
 			linesay++;
 
 	if (linesay == 0)
@@ -26,10 +26,10 @@ char **mod_strng(char *strng, char *delim)
 		return (NULL);
 	for (a = 0, b = 0; b < linesay; b++)
 	{
-		while (prser(strng[a], delim))
+		while (prser(strng[a], spec))
 			a++;
 		q = 0;
-		while (!prser(strng[a + q], delim) && strng[a + q])
+		while (!prser(strng[a + q], spec) && strng[a + q])
 			q++;
 		stst[b] = malloc((q + 1) * sizeof(char));
 		if (!stst[b])
@@ -50,10 +50,10 @@ char **mod_strng(char *strng, char *delim)
 /**
  * checkstrn - Splits string
  * @strng: Structure denoting multiple arguments
- * @delim: Delimeter
+ * @spec: Delimeter
  * Return: Pointer
  */
-char **checkstrn(char *strng, char delim)
+char **checkstrn(char *strng, char spec)
 {
 	int a, b, q, z, linesay = 0;
 	char **stst;
@@ -61,8 +61,8 @@ char **checkstrn(char *strng, char delim)
 	if (strng == NULL || strng[0] == 0)
 		return (NULL);
 	for (a = 0; strng[a] != '\0'; a++)
-		if ((strng[a] != delim && strng[a + 1] == delim) ||
-		    (strng[a] != delim && !strng[a + 1]) || strng[a + 1] == delim)
+		if ((strng[a] != spec && strng[a + 1] == spec) ||
+		    (strng[a] != spec && !strng[a + 1]) || strng[a + 1] == spec)
 			linesay++;
 	if (linesay == 0)
 		return (NULL);
@@ -71,10 +71,10 @@ char **checkstrn(char *strng, char delim)
 		return (NULL);
 	for (a = 0, b = 0; b < linesay; b++)
 	{
-		while (strng[a] == delim && strng[a] != delim)
+		while (strng[a] == spec && strng[a] != spec)
 			a++;
 		q = 0;
-		while (strng[a + q] != delim && strng[a + q] && strng[a + q] != delim)
+		while (strng[a + q] != spec && strng[a + q] && strng[a + q] != spec)
 			q++;
 		stst[b] = malloc((q + 1) * sizeof(char));
 		if (!stst[b])

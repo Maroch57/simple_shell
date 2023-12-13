@@ -60,13 +60,13 @@ char *strngmod(char *strngdest, char *strngsrce, int m)
 /**
  *str_imp - Distinguishes string characters
  *@stst: The string
- *@c: The character
+ *@charinp: The character
  *Return: The string
  */
-char *str_imp(char *stst, char c)
+char *str_imp(char *stst, char charinp)
 {
 	do {
-		if (*stst == c)
+		if (*stst == charinp)
 			return (stst);
 	} while (*stst++ != '\0');
 

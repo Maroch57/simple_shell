@@ -1,11 +1,10 @@
 #include "shell.h"
 
 /**
- * str_ch - responsible for testing if chars are delimeters.
- * @feed: the param struct in subject.
- * @buff: char buffer in subject.
- * @potr: the address current position in buffer.
- *
+ * str_ch - Determines if char delimeter.
+ * @feed: Structure denoting possible arguments.
+ * @buff: Buffer in subject.
+ * @potr: Buffer current position address.
  * Return: 1 if successful,else 0.
  */
 int str_ch(pseuarg_ch *feed, char *buff, size_t *potr)
@@ -36,13 +35,12 @@ int str_ch(pseuarg_ch *feed, char *buff, size_t *potr)
 }
 
 /**
- * look_ch - indluences chaining processes.
- * @feed: struct parameter in subject.
- * @buff: buffer character in subject.
- * @m: current position buffer address.
- * @n: the starting buffer position.
- * @lngth: current buffer lngth.
- *
+ * look_ch - Dictates chaining processes.
+ * @feed: Structure denoting possible arguments.
+ * @buff: Buffer character in subject.
+ * @m: Current position buffer address.
+ * @n: The starting buffer position.
+ * @lngth: Current buffer lngth.
  * Return: NULL.
  */
 void look_ch(pseuarg_ch *feed, char *buff, size_t *m, size_t n, size_t lngth)
@@ -70,9 +68,8 @@ void look_ch(pseuarg_ch *feed, char *buff, size_t *m, size_t n, size_t lngth)
 }
 
 /**
- * rp_alias - makes replacements in the tokenized strings.
- * @feed: struct param in subject.
- *
+ * rp_alias - Makes replacements in the tokenized strings.
+ * @feed: Structure denoting possible arguments.
  * Return: 1 if succesful; else 0.
  */
 int rp_alias(pseuarg_ch *feed)
@@ -99,9 +96,8 @@ int rp_alias(pseuarg_ch *feed)
 }
 
 /**
- * rp_vstr - makes var changes in the tokenized string.
- * @feed: the struct param in subject.
- *
+ * rp_vstr - Makes changes in tokenized string.
+ * @feed: Structure denoting possible arguments.
  * Return: 1 if successful, else 0.
  */
 int rp_vstr(pseuarg_ch *feed)
@@ -140,10 +136,9 @@ int rp_vstr(pseuarg_ch *feed)
 }
 
 /**
- * strn_chng - responsible for replacing the string in subject.
- * @o_str: the address of initial string.
- * @n_str: the new string in subject.
- *
+ * strn_chng - Responsible for replacing the string in subject.
+ * @o_str: The address of initial string.
+ * @n_str: The new string in subject.
  * Return: 1 on success, else 0.
  */
 int strn_chng(char **o_str, char *n_str)

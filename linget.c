@@ -1,11 +1,11 @@
 #include "shell.h"
 
 /**
- * bfer_inpt - buffer commands in subject.
- * @feed: struct parameter in subject.
- * @buff: buffer address in subject.
- * @leng: lngth var address.
- * Return: no. of bytes present.
+ * bfer_inpt - Buffers commands in subject.
+ * @feed: Structure denoting possible arguments.
+ * @buff: Buffer address in subject.
+ * @leng: Length var address.
+ * Return: Number of bytes present.
  */
 ssize_t bfer_inpt(pseuarg_ch *feed, char **buff, size_t *leng)
 {
@@ -42,10 +42,9 @@ ssize_t bfer_inpt(pseuarg_ch *feed, char **buff, size_t *leng)
 }
 
 /**
- * inpt_gt - fn gets a line without newline.
- * @feed: struct param in subject.
- *
- * Return: total number bytes.
+ * inpt_gt - Generates line without newline.
+ * @feed: Structure denoting possible arguments
+ * Return: Total number bytes.
  */
 ssize_t inpt_gt(pseuarg_ch *feed)
 {
@@ -87,30 +86,30 @@ ssize_t inpt_gt(pseuarg_ch *feed)
 }
 
 /**
- * rd_buf - reads a buff in subject.
- * @feed: struct param in subject.
- * @buff: the bufferin subject.
- * @i: demonstrates size.
- * Return: val.
+ * rd_buf - Reads buffer in subject.
+ * @feed: Structure denoting possible arguments.
+ * @buff: Buffer in subject.
+ * @si: Demonstrates size.
+ * Return: Val.
  */
-ssize_t rd_buf(pseuarg_ch *feed, char *buff, size_t *i)
+ssize_t rd_buf(pseuarg_ch *feed, char *buff, size_t *si)
 {
 	ssize_t h = 0;
 
-	if (*i)
+	if (*si)
 		return (0);
 	h = read(feed->telldes, buff, READ_BUFFER_SIZE);
 	if (h >= 0)
-		*i = h;
+		*si = h;
 	return (h);
 }
 
 /**
- * get_delim - fn gets next input line from stndard input.
- * @feed: struct param in subject.
- * @ptrr: ptr address to buff.
- * @llength: ptr buff size after allocation.
- * Return: val
+ * get_delim - Obtains next input line from stndard input.
+ * @feed: Structure denoting possible arguments.
+ * @ptrr: Pointer to buffer.
+ * @llength: Pointer buff size after allocation.
+ * Return: Val
  */
 int get_delim(pseuarg_ch *feed, char **ptrr, size_t *llength)
 {
@@ -133,7 +132,7 @@ int get_delim(pseuarg_ch *feed, char **ptrr, size_t *llength)
 	a = str_imp(buff + m, '\n');
 	n = a ? 1 + (unsigned int)(a - buff) : leng;
 	new_pt = mem_ralloc(t, d, d ? d + n : n + 1);
-	if (!new_pt) /* MALLOC FAILURE! */
+	if (!new_pt)
 		return (t ? free(t), -1 : -1);
 
 	if (d)
@@ -152,12 +151,11 @@ int get_delim(pseuarg_ch *feed, char **ptrr, size_t *llength)
 }
 
 /**
- * mngint - it blocks control C shortcut.
- * @sig_nmber: signal no.
- *
+ * mngint - This function blocks control C shortcut.
+ * @sigid: Number of signal in question.
  * Return: NULL.
  */
-void mngint(__attribute__((unused))int sig_nmber)
+void mngint(__attribute__((unused))int sigid)
 {
 	strngin("\n");
 	strngin("$ ");

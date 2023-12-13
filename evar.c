@@ -1,8 +1,8 @@
 #include "shell.h"
 
 /**
- * myown_env - ensures current environment is printed.
- * @feed: struct contains potential constant fn prototype.
+ * myown_env - Ensures current environment is printed.
+ * @feed: Structure denoting possible arguments
  * Return: 0
  */
 int myown_env(pseuarg_ch *feed)
@@ -12,11 +12,10 @@ int myown_env(pseuarg_ch *feed)
 }
 
 /**
- * pop_env - fn gets environment variable values.
- * @feed: struct of arguments in use.
- * @vname: variable name on env in subject.
- *
- * Return: value.
+ * pop_env - Obtains environment variable values.
+ * @feed: Structure denoting possible arguments
+ * @vname: Variable name of env in subject.
+ * Return: Environment variable values
  */
 char *pop_env(pseuarg_ch *feed, const char *vname)
 {
@@ -34,8 +33,8 @@ char *pop_env(pseuarg_ch *feed, const char *vname)
 }
 
 /**
- * good_env - configs/modif new environment variables.
- * @feed: struct containing potential arg prototypes.
+ * good_env - Configures/modifies new environment variables.
+ * @feed: Structure denoting possible arguments
  * Return: 0
  */
 int good_env(pseuarg_ch *feed)
@@ -51,9 +50,9 @@ int good_env(pseuarg_ch *feed)
 }
 
 /**
- * bad_env - eliminates/removes an env var.
- * @feed: struct containing potential arg prototype.
- *  Return: 0
+ * bad_env - Eliminates/removes env var.
+ * @feed: Structure denoting possible arguments
+ * Return: 0
  */
 int bad_env(pseuarg_ch *feed)
 {
@@ -71,8 +70,8 @@ int bad_env(pseuarg_ch *feed)
 }
 
 /**
- * fill_env - adds to an environmnt lst.
- * @feed: struct contains potential arg prototypes.
+ * fill_env - Adds to an environmnt lst.
+ * @feed: Structure denoting possible arguments
  * Return: 0
  */
 int fill_env(pseuarg_ch *feed)

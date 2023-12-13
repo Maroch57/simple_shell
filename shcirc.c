@@ -1,10 +1,9 @@
 #include "shell.h"
 
 /**
- * shellmain - the main loop fn in shell.
+ * shellmain - The main loop fn in shell.
  * @feed: struct param in subject.
  * @arv: argument vector in subject.
- *
  * Return: 0 if successful, else 1.
  */
 int shellmain(pseuarg_ch *feed, char **arv)
@@ -45,9 +44,8 @@ int shellmain(pseuarg_ch *feed, char **arv)
 }
 
 /**
- * go_emb - fn searches for a builtin command.
- * @feed: struct param in subject.
- *
+ * go_emb - This function searches for builtin command.
+ * @feed: Structure denoting possible arguments.
  * Return: -1 if builtin command is not found,
  *		0 if successful,
  *		1 if not successful,
@@ -79,9 +77,8 @@ int go_emb(pseuarg_ch *feed)
 }
 
 /**
- * loc_comm - responsible for finding a command in a certain path.
- * @feed: struct param in subject.
- *
+ * loc_comm - Responsible for finding a command in a certain path.
+ * @feed: Structure denoting possible arguments.
  * Return: NULL.
  */
 void loc_comm(pseuarg_ch *feed)
@@ -121,9 +118,8 @@ void loc_comm(pseuarg_ch *feed)
 }
 
 /**
- * loc_fork - enables forking of an executable thread.
- * @feed: struct param in subject.
- *
+ * loc_fork - Enables forking of an executable thread.
+ * @feed: Structure denoting possible arguments.
  * Return: void.
  */
 void loc_fork(pseuarg_ch *feed)

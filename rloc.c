@@ -1,11 +1,11 @@
 #include "shell.h"
 
 /**
- **mmry_arn - responsible for populating the memory.
- *@r: ptr to memory.
- *@p: reponsible byte for populating the memory.
- *@m: no. bytes to be populated.
- *Return: ptr to the memory.
+ **mmry_arn - Responsible for populating the memory.
+ *@r: Ptr to memory.
+ *@p: Reponsible byte for populating the memory.
+ *@m: Bytes to be populated.
+ *Return: Ptr to the memory.
  */
 char *mmry_arn(char *r, char p, unsigned int m)
 {
@@ -17,8 +17,8 @@ char *mmry_arn(char *r, char p, unsigned int m)
 }
 
 /**
- * dmfree - responsible for freeing a string of strings.
- * @ss: the string of stringsin subject.
+ * dmfree - Responsible for freeing a string of strings.
+ * @ss: The string of strings in subject.
  */
 void dmfree(char **ss)
 {
@@ -32,12 +32,11 @@ void dmfree(char **ss)
 }
 
 /**
- * mem_ralloc - responsible for allocating a block of memory.
- * @pptr: ptr to memory allocated block.
- * @init_size: initial size of a block of memory.
- * @curr_size: size of the new mem allocated block.
- *
- * Return: a ptr to the memory block.
+ * mem_ralloc - Responsible for allocating memory block.
+ * @pptr: Ptr to memory allocated block.
+ * @init_size: Initial size of a block of memory.
+ * @curr_size: Size of the new mem allocated block.
+ * Return: Ptr to the memory block.
  */
 void *mem_ralloc(void *pptr, unsigned int init_size, unsigned int curr_size)
 {

@@ -1,10 +1,9 @@
 #include "shell.h"
 
 /**
- * lngth_lst - responsible for the length of a linked list.
- * @pr: ptr to first node in a list
- *
- * Return: total size of the list.
+ * lngth_lst - Responsible for the length of a linked list.
+ * @pr: Ptr to first node in a list
+ * Return: Total size of the list.
  */
 size_t lngth_lst(const lst_m *pr)
 {
@@ -19,10 +18,9 @@ size_t lngth_lst(const lst_m *pr)
 }
 
 /**
- * strng_lst - fn returns an array of strings.
- * @phead: ptr to first node in the linked list.
- *
- * Return: an array of strngs.
+ * strng_lst - This function returns an array of strings.
+ * @phead: Ptr to first node in the linked list.
+ * Return: String array.
  */
 char **strng_lst(lst_m *phead)
 {
@@ -56,10 +54,9 @@ char **strng_lst(lst_m *phead)
 
 
 /**
- * prnt_lst - fn prints all elements of a linked list.
- * @pr: ptr to first element/node in the list.
- *
- * Return: total size of the list in subject.
+ * prnt_lst - Prints elements.
+ * @pr: Ptr to first element/node in the list.
+ * Return: Total size of the list in subject.
  */
 size_t prnt_lst(const lst_m *pr)
 {
@@ -79,21 +76,20 @@ size_t prnt_lst(const lst_m *pr)
 }
 
 /**
- * strt_stng - returns node starting a string.
- * @nod: ptr to head of list.
- * @prefix: string in subject under match.
- * @c: next char after prefix under match.
- *
- * Return: void
+ * strt_stng - Returns node starting a string.
+ * @nod: Ptr to head of list.
+ * @upfront: String in subject under match.
+ * @charinp: Next char after prefix under match.
+ * Return: Void
  */
-lst_m *strt_strng(lst_m *nod, char *prefix, char c)
+lst_m *strt_strng(lst_m *nod, char *upfront, char charinp)
 {
 	char *m = NULL;
 
 	while (nod)
 	{
-		m = at_strt(nod->strng, prefix);
-		if (m && ((c == -1) || (*m == c)))
+		m = at_strt(nod->strng, upfront);
+		if (m && ((charinp == -1) || (*m == charinp)))
 			return (nod);
 		nod = nod->next;
 	}
@@ -101,21 +97,20 @@ lst_m *strt_strng(lst_m *nod, char *prefix, char c)
 }
 
 /**
- * indx_gt - responsible for getting the node index.
- * @head: ptr to head of list.
- * @node: the ptr to the node in subject.
- *
+ * indx_gt - Obtains node index.
+ * @nog: Ptr to head of list.
+ * @node: The ptr to the node in subject.
  * Return: node index else, -1
  */
-ssize_t indx_gt(lst_m *head, lst_m *node)
+ssize_t indx_gt(lst_m *nog, lst_m *node)
 {
 	size_t b = 0;
 
-	while (head)
+	while (nog)
 	{
-		if (head == node)
+		if (nog == node)
 			return (b);
-		head = head->next;
+		nog = nog->next;
 		b++;
 	}
 	return (-1);

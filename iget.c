@@ -1,8 +1,8 @@
 #include "shell.h"
 
 /**
- * infclr - it initializes pseuarg_ch struct.
- * @feed: it is the address of struct.
+ * infclr - Function to activate pseuarg_ch structure.
+ * @feed: Structure denoting possible arguments
  */
 void infclr(pseuarg_ch *feed)
 {
@@ -13,9 +13,9 @@ void infclr(pseuarg_ch *feed)
 }
 
 /**
- * infprs - it initializes pseuarg_ch struct.
- * @feed: it is the address of struct.
- * @arv: the arg vector.
+ * infprs - Activates pseuarg_ch struct.
+ * @feed: Structure denoting possible arguments
+ * @arv: The arg vector.
  */
 void infprs(pseuarg_ch *feed, char **arv)
 {
@@ -45,9 +45,9 @@ void infprs(pseuarg_ch *feed, char **arv)
 }
 
 /**
- * infree - fn handles freeing of pseuarg_ch struct fields.
- * @feed: it is the address of struct.
- * @fldall: becomes true if all fields are freed.
+ * infree - This function liberates pseuarg_ch struct fields.
+ * @feed: Structure denoting possible arguments
+ * @fldall: Denotes liberation of fields
  */
 void infree(pseuarg_ch *feed, int fldall)
 {

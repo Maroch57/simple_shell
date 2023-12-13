@@ -13,7 +13,7 @@ int hist_rep(pseuarg_ch *feed)
 
 /**
  * rmalias - This command assigns an alias to a string
- * @feed: The parameter
+ * @feed: The structure that denotes possible arguments
  * @strng: The alias denoting the string
  * Return: 0 if success, 1 if error
  */
@@ -34,7 +34,7 @@ int rmalias(pseuarg_ch *feed, char *strng)
 
 /**
  * putalias - Assigns an alias to a string
- * @feed: The parameter
+ * @feed: The structure that denotes possible arguments
  * @strng: Alias denoting the string
  * Return: 0 if success, 1 if error
  */
@@ -77,7 +77,7 @@ int prntalias(lst_m *node)
 /**
  * alum_hist - Replicates the builtin alias
  * @feed: The structure denoting possible arguments
- *  Return: 0
+ * Return: 0
  */
 int alum_hist(pseuarg_ch *feed)
 {

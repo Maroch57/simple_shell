@@ -23,7 +23,7 @@ char *histfile_fetch(pseuarg_ch *feed)
 }
 
 /**
- * hist_updt - Creates ands appends file
+ * hist_updt - Creates and appends file
  * @feed: The structure denoting possible arguments
  * Return: 1 if successful, -1 if unsuccessful
  */

@@ -1,9 +1,8 @@
 #include "shell.h"
 
 /**
- * mem_free - fn frees a pointer and makes it addrss NULL.
- * @pttr: addrss of ptr to be freed.
- *
+ * mem_free - Liberates pointer and nullifies address.
+ * @pttr: Liberated pointer address.
  * Return: 1 if successful, else 0.
  */
 int mem_free(void **pttr)

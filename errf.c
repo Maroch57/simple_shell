@@ -1,36 +1,36 @@
 #include "shell.h"
 
 /**
- * exst_err - transforms strng to int.
- * @s: strng under transformation.
+ * exst_err - Generates integer from string
+ * @st: String under transformation.
  * Return: 0 if successful, else -1
  */
-int exst_err(char *s)
+int exst_err(char *st)
 {
 	int u = 0;
-	unsigned long int rslt = 0;
+	unsigned long int give = 0;
 
-	if (*s == '+')
-		s++;
-	for (u = 0;  s[u] != '\0'; u++)
+	if (*st == '+')
+		st++;
+	for (u = 0;  st[u] != '\0'; u++)
 	{
-		if (s[u] >= '0' && s[u] <= '9')
+		if (st[u] >= '0' && st[u] <= '9')
 		{
-			rslt *= 10;
-			rslt += (s[u] - '0');
-			if (rslt > INT_MAX)
+			give *= 10;
+			give += (st[u] - '0');
+			if (give > INT_MAX)
 				return (-1);
 		}
 		else
 			return (-1);
 	}
-	return (rslt);
+	return (give);
 }
 
 /**
- * errorprnt - prnts error mssage as output.
- * @feed: struct return information.
- * @errstrng: string with a certain error.
+ * errorprnt - Returns an error message as output
+ * @feed: String denoting multiple arguments
+ * @errstrng: The string denoting the error
  * Return: 0 if successful, else -1
  */
 void errorprnt(pseuarg_ch *feed, char *errstrng)
@@ -45,13 +45,12 @@ void errorprnt(pseuarg_ch *feed, char *errstrng)
 }
 
 /**
- * disprnt - fn prnts an int no. to base 10.
- * @inpt: input in subject.
- * @fd: file descriptor to be written to.
- *
- * Return: total no. of chars prnted.
+ * disprnt - Prints an int no. to base 10.
+ * @setit: Input in subject.
+ * @fd: The respective file descriptor to be written to.
+ * Return: The total no. of printed characters.
  */
-int disprnt(int inpt, int fd)
+int disprnt(int setit, int fd)
 {
 	int (*__putchar)(char) = _putchar;
 	int u, ccount = 0;
@@ -59,14 +58,14 @@ int disprnt(int inpt, int fd)
 
 	if (fd == STDERR_FILENO)
 		__putchar = charins;
-	if (inpt < 0)
+	if (setit < 0)
 	{
-		bs_arr = -inpt;
+		bs_arr = -setit;
 		__putchar('-');
 		ccount++;
 	}
 	else
-		bs_arr = inpt;
+		bs_arr = setit;
 	currnt = bs_arr;
 	for (u = 1000000000; u > 1; u /= 10)
 	{
@@ -84,13 +83,13 @@ int disprnt(int inpt, int fd)
 }
 
 /**
- * conv_nmber - fn that converts.
- * @numb: the number in subject.
- * @base_s: the base in subject.
- * @flags: arg flags in subject.
- * Return: a string of chars.
+ * conv_nmber - Function that converts.
+ * @numb: The number in subject.
+ * @base_s: The base in subject.
+ * @argflags: The argument flags in subject.
+ * Return: A string of chars.
  */
-char *conv_nmber(long int numb, int base_s, int flags)
+char *conv_nmber(long int numb, int base_s, int argflags)
 {
 	static char *arr;
 	static char bffer[50];
@@ -98,13 +97,13 @@ char *conv_nmber(long int numb, int base_s, int flags)
 	char *pter;
 	unsigned long m = numb;
 
-	if (!(flags & CONVERT_UNINT) && numb < 0)
+	if (!(argflags & CONVERT_UNINT) && numb < 0)
 	{
 		m = -numb;
 		indic = '-';
 
 	}
-	arr = flags & CONVERT_LOWER ? "0123456789abcdef" : "0123456789ABCDEF";
+	arr = argflags & CONVERT_LOWER ? "0123456789abcdef" : "0123456789ABCDEF";
 	pter = &bffer[49];
 	*pter = '\0';
 
