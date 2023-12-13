@@ -9,7 +9,7 @@
  */
 int main(int ac, char **av)
 {
-	pseuarg_ch info[] = { INIT_GET };
+	pseuarg_ch feed[] = { INIT_GET };
 	int fd = 2;
 
 	asm ("mov %1, %0\n\t"
@@ -35,10 +35,10 @@ int main(int ac, char **av)
 			}
 			return (EXIT_FAILURE);
 		}
-		info->telldes = fd;
+		feed->telldes = fd;
 	}
-	fill_env(info);
-	rdhist(info);
-	shellmain(info, av);
+	fill_env(feed);
+	rdhist(feed);
+	shellmain(feed, av);
 	return (EXIT_SUCCESS);
 }

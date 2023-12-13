@@ -29,17 +29,17 @@ int exst_err(char *s)
 
 /**
  * errorprnt - prnts error mssage as output.
- * @info: struct return information.
+ * @feed: struct return information.
  * @errstrng: string with a certain error.
  * Return: 0 if successful, else -1
  */
-void errorprnt(pseuarg_ch *info, char *errstrng)
+void errorprnt(pseuarg_ch *feed, char *errstrng)
 {
-	putide(info->progname);
+	putide(feed->progname);
 	putide(": ");
-	disprnt(info->cnterr, STDERR_FILENO);
+	disprnt(feed->cnterr, STDERR_FILENO);
 	putide(": ");
-	putide(info->argv[0]);
+	putide(feed->argv[0]);
 	putide(": ");
 	putide(errstrng);
 }

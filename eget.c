@@ -2,29 +2,29 @@
 
 /**
  * aqrenv - Returns the environment array
- * @info: The structure denoting possible arguments
+ * @feed: The structure denoting possible arguments
  * Return: 0
  */
-char **aqrenv(pseuarg_ch *info)
+char **aqrenv(pseuarg_ch *feed)
 {
-	if (!info->environ || info->new_env)
+	if (!feed->environ || feed->new_env)
 	{
-		info->environ = strng_lst(info->exvar);
-		info->new_env = 0;
+		feed->environ = strng_lst(feed->exvar);
+		feed->new_env = 0;
 	}
 
-	return (info->environ);
+	return (feed->environ);
 }
 
 /**
  * envunp - Gets rid of the environment variable
- * @info: The structure denoting possible arguments
+ * @feed: The structure denoting possible arguments
  * @var: The environment variable
  * Return: 1
  */
-int envunp(pseuarg_ch *info, char *var)
+int envunp(pseuarg_ch *feed, char *var)
 {
-	lst_m *node = info->exvar;
+	lst_m *node = feed->exvar;
 	size_t a = 0;
 	char *p;
 
@@ -36,25 +36,25 @@ int envunp(pseuarg_ch *info, char *var)
 		p = at_strt(node->strng, var);
 		if (p && *p == '=')
 		{
-			info->new_env = indxnode_del(&(info->exvar), a);
+			feed->new_env = indxnode_del(&(feed->exvar), a);
 			a = 0;
-			node = info->exvar;
+			node = feed->exvar;
 			continue;
 		}
 		node = node->next;
 		a++;
 	}
-	return (info->new_env);
+	return (feed->new_env);
 }
 
 /**
  * ptenv - Sets and enhances environment variables
- * @info: The structure denoting possible arguments
+ * @feed: The structure denoting possible arguments
  * @var: The environment variable
  * @value: The string environment variable
  * Return: 0
  */
-int ptenv(pseuarg_ch *info, char *var, char *value)
+int ptenv(pseuarg_ch *feed, char *var, char *value)
 {
 	char *buff = NULL;
 	lst_m *node;
@@ -69,7 +69,7 @@ int ptenv(pseuarg_ch *info, char *var, char *value)
 	strngcop(buff, var);
 	strn_cat(buff, "=");
 	strn_cat(buff, value);
-	node = info->exvar;
+	node = feed->exvar;
 	while (node)
 	{
 		p = at_strt(node->strng, var);
@@ -77,13 +77,13 @@ int ptenv(pseuarg_ch *info, char *var, char *value)
 		{
 			free(node->strng);
 			node->strng = buff;
-			info->new_env = 1;
+			feed->new_env = 1;
 			return (0);
 		}
 		node = node->next;
 	}
-	endnode_add(&(info->exvar), buff, 0);
+	endnode_add(&(feed->exvar), buff, 0);
 	free(buff);
-	info->new_env = 1;
+	feed->new_env = 1;
 	return (0);
 }

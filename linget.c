@@ -2,12 +2,12 @@
 
 /**
  * bfer_inpt - buffer commands in subject.
- * @info: struct parameter in subject.
+ * @feed: struct parameter in subject.
  * @buff: buffer address in subject.
  * @leng: lngth var address.
  * Return: no. of bytes present.
  */
-ssize_t bfer_inpt(pseuarg_ch *info, char **buff, size_t *leng)
+ssize_t bfer_inpt(pseuarg_ch *feed, char **buff, size_t *leng)
 {
 	ssize_t w = 0;
 	size_t en_lnth = 0;
@@ -20,7 +20,7 @@ ssize_t bfer_inpt(pseuarg_ch *info, char **buff, size_t *leng)
 #if FOR_GETLINE
 		w = getline(buff, &en_lnth, stdin);
 #else
-		w = get_delim(info, buff, &en_lnth);
+		w = get_delim(feed, buff, &en_lnth);
 #endif
 		if (w > 0)
 		{
@@ -29,12 +29,12 @@ ssize_t bfer_inpt(pseuarg_ch *info, char **buff, size_t *leng)
 				(*buff)[w - 1] = '\0';
 				w--;
 			}
-			info->cntline_flg = 1;
+			feed->cntline_flg = 1;
 			rm_comm(*buff);
-			histlst_b(info, *buff, info->tellhist++);
+			histlst_b(feed, *buff, feed->tellhist++);
 			{
 				*leng = w;
-				info->cdbuffer = buff;
+				feed->cdbuffer = buff;
 			}
 		}
 	}
@@ -43,19 +43,19 @@ ssize_t bfer_inpt(pseuarg_ch *info, char **buff, size_t *leng)
 
 /**
  * inpt_gt - fn gets a line without newline.
- * @info: struct param in subject.
+ * @feed: struct param in subject.
  *
  * Return: total number bytes.
  */
-ssize_t inpt_gt(pseuarg_ch *info)
+ssize_t inpt_gt(pseuarg_ch *feed)
 {
 	static char *buff;
 	static size_t f, g, leng;
 	ssize_t h = 0;
-	char **bf_ptr = &(info->arg), *q;
+	char **bf_ptr = &(feed->arg), *q;
 
 	_putchar(BUFFER_FLUSH);
-	h = bfer_inpt(info, &buff, &leng);
+	h = bfer_inpt(feed, &buff, &leng);
 	if (h == -1)
 		return (-1);
 	if (leng)
@@ -63,10 +63,10 @@ ssize_t inpt_gt(pseuarg_ch *info)
 		g = f;
 		q = buff + f;
 
-		look_ch(info, buff, &g, f, leng);
+		look_ch(feed, buff, &g, f, leng);
 		while (g < leng)
 		{
-			if (str_ch(info, buff, &g))
+			if (str_ch(feed, buff, &g))
 				break;
 			g++;
 		}
@@ -75,7 +75,7 @@ ssize_t inpt_gt(pseuarg_ch *info)
 		if (f >= leng)
 		{
 			f = leng = 0;
-			info->cdbuffertype = NORMAL_CMND;
+			feed->cdbuffertype = NORMAL_CMND;
 		}
 
 		*bf_ptr = q;
@@ -88,18 +88,18 @@ ssize_t inpt_gt(pseuarg_ch *info)
 
 /**
  * rd_buf - reads a buff in subject.
- * @info: struct param in subject.
+ * @feed: struct param in subject.
  * @buff: the bufferin subject.
  * @i: demonstrates size.
  * Return: val.
  */
-ssize_t rd_buf(pseuarg_ch *info, char *buff, size_t *i)
+ssize_t rd_buf(pseuarg_ch *feed, char *buff, size_t *i)
 {
 	ssize_t h = 0;
 
 	if (*i)
 		return (0);
-	h = read(info->telldes, buff, READ_BUFFER_SIZE);
+	h = read(feed->telldes, buff, READ_BUFFER_SIZE);
 	if (h >= 0)
 		*i = h;
 	return (h);
@@ -107,12 +107,12 @@ ssize_t rd_buf(pseuarg_ch *info, char *buff, size_t *i)
 
 /**
  * get_delim - fn gets next input line from stndard input.
- * @info: struct param in subject.
+ * @feed: struct param in subject.
  * @ptrr: ptr address to buff.
  * @llength: ptr buff size after allocation.
  * Return: val
  */
-int get_delim(pseuarg_ch *info, char **ptrr, size_t *llength)
+int get_delim(pseuarg_ch *feed, char **ptrr, size_t *llength)
 {
 	static char buff[READ_BUFFER_SIZE];
 	static size_t m, leng;
@@ -126,7 +126,7 @@ int get_delim(pseuarg_ch *info, char **ptrr, size_t *llength)
 	if (m == leng)
 		m = leng = 0;
 
-	q = rd_buf(info, buff, &leng);
+	q = rd_buf(feed, buff, &leng);
 	if (q == -1 || (q == 0 && leng == 0))
 		return (-1);
 

@@ -2,12 +2,12 @@
 
 /**
  * shellmain - the main loop fn in shell.
- * @info: struct param in subject.
+ * @feed: struct param in subject.
  * @arv: argument vector in subject.
  *
  * Return: 0 if successful, else 1.
  */
-int shellmain(pseuarg_ch *info, char **arv)
+int shellmain(pseuarg_ch *feed, char **arv)
 {
 	ssize_t g = 0;
 	int ret_bld = 0;
@@ -15,45 +15,45 @@ int shellmain(pseuarg_ch *info, char **arv)
 	while (g != -1 && ret_bld != -2)
 	{
 
-		infclr(info);
-		if (actv_int(info))
+		infclr(feed);
+		if (actv_int(feed))
 			strngin("$ ");
 		charins(BUFFER_FLUSH);
-		g = inpt_gt(info);
+		g = inpt_gt(feed);
 		if (g != -1)
 		{
-			infprs(info, arv);
-			ret_bld = go_emb(info);
+			infprs(feed, arv);
+			ret_bld = go_emb(feed);
 			if (ret_bld == -1)
-				loc_comm(info);
+				loc_comm(feed);
 		}
-		else if (actv_int(info))
+		else if (actv_int(feed))
 			_putchar('\n');
-		infree(info, 0);
+		infree(feed, 0);
 	}
-	hist_updt(info);
-	infree(info, 1);
-	if (!actv_int(info) && info->tellstat)
-		exit(info->tellstat);
+	hist_updt(feed);
+	infree(feed, 1);
+	if (!actv_int(feed) && feed->tellstat)
+		exit(feed->tellstat);
 	if (ret_bld == -2)
 	{
-		if (info->errn == -1)
-			exit(info->tellstat);
-		exit(info->errn);
+		if (feed->errn == -1)
+			exit(feed->tellstat);
+		exit(feed->errn);
 	}
 	return (ret_bld);
 }
 
 /**
  * go_emb - fn searches for a builtin command.
- * @info: struct param in subject.
+ * @feed: struct param in subject.
  *
  * Return: -1 if builtin command is not found,
  *		0 if successful,
  *		1 if not successful,
  *		-2 if the fn is supposed to exit.
  */
-int go_emb(pseuarg_ch *info)
+int go_emb(pseuarg_ch *feed)
 {
 	int g, retn_b = -1;
 	embed_str tbl_build[] = {
@@ -69,10 +69,10 @@ int go_emb(pseuarg_ch *info)
 	};
 
 	for (g = 0; tbl_build[g].cflg; g++)
-		if (strn_cmp(info->argv[0], tbl_build[g].cflg) == 0)
+		if (strn_cmp(feed->argv[0], tbl_build[g].cflg) == 0)
 		{
-			info->cnterr++;
-			retn_b = tbl_build[g].resfunc(info);
+			feed->cnterr++;
+			retn_b = tbl_build[g].resfunc(feed);
 			break;
 		}
 	return (retn_b);
@@ -80,53 +80,53 @@ int go_emb(pseuarg_ch *info)
 
 /**
  * loc_comm - responsible for finding a command in a certain path.
- * @info: struct param in subject.
+ * @feed: struct param in subject.
  *
  * Return: NULL.
  */
-void loc_comm(pseuarg_ch *info)
+void loc_comm(pseuarg_ch *feed)
 {
 	char *way = NULL;
 	int l, m;
 
-	info->way = info->argv[0];
-	if (info->cntline_flg == 1)
+	feed->way = feed->argv[0];
+	if (feed->cntline_flg == 1)
 	{
-		info->cnterr++;
-		info->cntline_flg = 0;
+		feed->cnterr++;
+		feed->cntline_flg = 0;
 	}
-	for (l = 0, m = 0; info->arg[l]; l++)
-		if (!prser(info->arg[l], " \t\n"))
+	for (l = 0, m = 0; feed->arg[l]; l++)
+		if (!prser(feed->arg[l], " \t\n"))
 			m++;
 	if (!m)
 		return;
 
-	way = locpath(info, pop_env(info, "PATH="), info->argv[0]);
+	way = locpath(feed, pop_env(feed, "PATH="), feed->argv[0]);
 	if (way)
 	{
-		info->way = way;
-		loc_fork(info);
+		feed->way = way;
+		loc_fork(feed);
 	}
 	else
 	{
-		if ((actv_int(info) || pop_env(info, "PATH=")
-			|| info->argv[0][0] == '/') && cmdprt(info, info->argv[0]))
-			loc_fork(info);
-		else if (*(info->arg) != '\n')
+		if ((actv_int(feed) || pop_env(feed, "PATH=")
+			|| feed->argv[0][0] == '/') && cmdprt(feed, feed->argv[0]))
+			loc_fork(feed);
+		else if (*(feed->arg) != '\n')
 		{
-			info->tellstat = 127;
-			errorprnt(info, "not found\n");
+			feed->tellstat = 127;
+			errorprnt(feed, "not found\n");
 		}
 	}
 }
 
 /**
  * loc_fork - enables forking of an executable thread.
- * @info: struct param in subject.
+ * @feed: struct param in subject.
  *
  * Return: void.
  */
-void loc_fork(pseuarg_ch *info)
+void loc_fork(pseuarg_ch *feed)
 {
 	pid_t chld_pid;
 
@@ -138,9 +138,9 @@ void loc_fork(pseuarg_ch *info)
 	}
 	if (chld_pid == 0)
 	{
-		if (execve(info->way, info->argv, aqrenv(info)) == -1)
+		if (execve(feed->way, feed->argv, aqrenv(feed)) == -1)
 		{
-			infree(info, 1);
+			infree(feed, 1);
 			if (errno == EACCES)
 				exit(126);
 			exit(1);
@@ -148,12 +148,12 @@ void loc_fork(pseuarg_ch *info)
 	}
 	else
 	{
-		wait(&(info->tellstat));
-		if (WIFEXITED(info->tellstat))
+		wait(&(feed->tellstat));
+		if (WIFEXITED(feed->tellstat))
 		{
-			info->tellstat = WEXITSTATUS(info->tellstat);
-			if (info->tellstat == 126)
-				errorprnt(info, "Permission denied\n");
+			feed->tellstat = WEXITSTATUS(feed->tellstat);
+			if (feed->tellstat == 126)
+				errorprnt(feed, "Permission denied\n");
 		}
 	}
 }

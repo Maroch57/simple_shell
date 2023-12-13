@@ -2,15 +2,15 @@
 
 /**
  * cmdprt - Checks if executable
- * @info: Structure denoting possible arguments
+ * @feed: Structure denoting possible arguments
  * @way: The file path
  * Return: 1
  */
-int cmdprt(pseuarg_ch *info, char *way)
+int cmdprt(pseuarg_ch *feed, char *way)
 {
 	struct stat st;
 
-	(void)info;
+	(void)feed;
 	if (!way || stat(way, &st))
 		return (0);
 
@@ -42,12 +42,12 @@ char *chardup(char *stpth, int inds, int sind)
 
 /**
  * locpath - Locates in the path
- * @info: Structure denoting possible arguments
+ * @feed: Structure denoting possible arguments
  * @stpth: Path string
  * @findcmd: The located cmd
  * Return: Path
  */
-char *locpath(pseuarg_ch *info, char *stpth, char *findcmd)
+char *locpath(pseuarg_ch *feed, char *stpth, char *findcmd)
 {
 	int a = 0, i_nitial = 0;
 	char *way;
@@ -56,7 +56,7 @@ char *locpath(pseuarg_ch *info, char *stpth, char *findcmd)
 		return (NULL);
 	if ((lngth_str(findcmd) > 2) && at_strt(findcmd, "./"))
 	{
-		if (cmdprt(info, findcmd))
+		if (cmdprt(feed, findcmd))
 			return (findcmd);
 	}
 	while (1)
@@ -71,7 +71,7 @@ char *locpath(pseuarg_ch *info, char *stpth, char *findcmd)
 				strn_cat(way, "/");
 				strn_cat(way, findcmd);
 			}
-			if (cmdprt(info, way))
+			if (cmdprt(feed, way))
 				return (way);
 			if (!stpth[a])
 				break;

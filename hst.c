@@ -2,14 +2,14 @@
 
 /**
  * histfile_fetch - Fetches the history file
- * @info: The structure denoting possible arguments
+ * @feed: The structure denoting possible arguments
  * Return: The history file string
  */
-char *histfile_fetch(pseuarg_ch *info)
+char *histfile_fetch(pseuarg_ch *feed)
 {
 	char *directry, *buff;
 
-	directry = pop_env(info, "HOME=");
+	directry = pop_env(feed, "HOME=");
 	if (!directry)
 		return (NULL);
 	buff = malloc(sizeof(char) * (lngth_str(directry) + lngth_str(FILE_H) + 2));
@@ -24,14 +24,14 @@ char *histfile_fetch(pseuarg_ch *info)
 
 /**
  * hist_updt - Creates ands appends file
- * @info: The structure denoting possible arguments
+ * @feed: The structure denoting possible arguments
  * Return: 1 if successful, -1 if unsuccessful
  */
-int hist_updt(pseuarg_ch *info)
+int hist_updt(pseuarg_ch *feed)
 {
 	lst_m *node = NULL;
 	ssize_t fd;
-	char *file = histfile_fetch(info);
+	char *file = histfile_fetch(feed);
 
 	if (!file)
 		return (-1);
@@ -40,7 +40,7 @@ int hist_updt(pseuarg_ch *info)
 	free(file);
 	if (fd == -1)
 		return (-1);
-	for (node = info->hst; node; node = node->next)
+	for (node = feed->hst; node; node = node->next)
 	{
 		fndpt(node->strng, fd);
 		fputer('\n', fd);
@@ -52,14 +52,14 @@ int hist_updt(pseuarg_ch *info)
 
 /**
  * rdhist - Reads history
- * @info: The structure denoting possible arguments
+ * @feed: The structure denoting possible arguments
  * Return: The history count
  */
-int rdhist(pseuarg_ch *info)
+int rdhist(pseuarg_ch *feed)
 {
 	int a, count = 0, final = 0;
 	ssize_t fd, readsize, readlen = 0;
-	char *buff = NULL, *file = histfile_fetch(info);
+	char *buff = NULL, *file = histfile_fetch(feed);
 	struct stat st;
 
 	if (!file)
@@ -85,47 +85,47 @@ int rdhist(pseuarg_ch *info)
 		if (buff[a] == '\n')
 		{
 			buff[a] = 0;
-			histlst_b(info, buff + final, count++);
+			histlst_b(feed, buff + final, count++);
 			final = a + 1;
 		}
 	if (final != a)
-		histlst_b(info, buff + final, count++);
+		histlst_b(feed, buff + final, count++);
 	free(buff);
-	info->tellhist = count;
-	while (info->tellhist-- >= MAX_H)
-		indxnode_del(&(info->hst), 0);
-	nmber_hist(info);
-	return (info->tellhist);
+	feed->tellhist = count;
+	while (feed->tellhist-- >= MAX_H)
+		indxnode_del(&(feed->hst), 0);
+	nmber_hist(feed);
+	return (feed->tellhist);
 }
 
 /**
  * histlst_b - History list entry
- * @info: Structure denoting possible arguments
+ * @feed: Structure denoting possible arguments
  * @buff: The buffer
  * @count: The linecount denoting the history
  * Return: 0
  */
-int histlst_b(pseuarg_ch *info, char *buff, int count)
+int histlst_b(pseuarg_ch *feed, char *buff, int count)
 {
 	lst_m *node = NULL;
 
-	if (info->hst)
-		node = info->hst;
+	if (feed->hst)
+		node = feed->hst;
 	endnode_add(&node, buff, count);
 
-	if (!info->hst)
-		info->hst = node;
+	if (!feed->hst)
+		feed->hst = node;
 	return (0);
 }
 
 /**
  * nmber_hist - Renumbers the list
- * @info: Structure denoting possible arguments
+ * @feed: Structure denoting possible arguments
  * Return: 0
  */
-int nmber_hist(pseuarg_ch *info)
+int nmber_hist(pseuarg_ch *feed)
 {
-	lst_m *node = info->hst;
+	lst_m *node = feed->hst;
 	int a = 0;
 
 	while (node)
@@ -133,5 +133,5 @@ int nmber_hist(pseuarg_ch *info)
 		node->nmber = a++;
 		node = node->next;
 	}
-	return (info->tellhist = a);
+	return (feed->tellhist = a);
 }

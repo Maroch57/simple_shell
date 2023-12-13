@@ -2,37 +2,37 @@
 
 /**
  * exist_sts - The command to exit the shell
- * @info: Structure containing constant function prototype.
+ * @feed: Structure containing constant function prototype.
  * Return: Respective exit status
  */
-int exist_sts(pseuarg_ch *info)
+int exist_sts(pseuarg_ch *feed)
 {
 	int ext_stat;
 
-	if (info->argv[1])
+	if (feed->argv[1])
 	{
-		ext_stat = exst_err(info->argv[1]);
+		ext_stat = exst_err(feed->argv[1]);
 		if (ext_stat == -1)
 		{
-			info->tellstat = 2;
-			errorprnt(info, "Illegal number: ");
-			putide(info->argv[1]);
+			feed->tellstat = 2;
+			errorprnt(feed, "Illegal number: ");
+			putide(feed->argv[1]);
 			charins('\n');
 			return (1);
 		}
-		info->errn = exst_err(info->argv[1]);
+		feed->errn = exst_err(feed->argv[1]);
 		return (-2);
 	}
-	info->errn = -1;
+	feed->errn = -1;
 	return (-2);
 }
 
 /**
  * cd_mine - changes current process directory.
- * @info: Structure containing potential fn prototype.
+ * @feed: Structure containing potential fn prototype.
  *  Return: 0.
  */
-int cd_mine(pseuarg_ch *info)
+int cd_mine(pseuarg_ch *feed)
 {
 	char *s, *directry, buffer[1024];
 	int retchld;
@@ -40,52 +40,52 @@ int cd_mine(pseuarg_ch *info)
 	s = getcwd(buffer, 1024);
 	if (!s)
 		strngin("TODO: >>getcwd failure emsg here<<\n");
-	if (!info->argv[1])
+	if (!feed->argv[1])
 	{
-		directry = pop_env(info, "HOME=");
+		directry = pop_env(feed, "HOME=");
 		if (!directry)
 			retchld =
-				chdir((directry = pop_env(info, "PWD=")) ? directry : "/");
+				chdir((directry = pop_env(feed, "PWD=")) ? directry : "/");
 		else
 			retchld = chdir(directry);
 	}
-	else if (strn_cmp(info->argv[1], "-") == 0)
+	else if (strn_cmp(feed->argv[1], "-") == 0)
 	{
-		if (!pop_env(info, "OLDPWD="))
+		if (!pop_env(feed, "OLDPWD="))
 		{
 			strngin(s);
 			_putchar('\n');
 			return (1);
 		}
-		strngin(pop_env(info, "OLDPWD=")), _putchar('\n');
+		strngin(pop_env(feed, "OLDPWD=")), _putchar('\n');
 		retchld =
-			chdir((directry = pop_env(info, "OLDPWD=")) ? directry : "/");
+			chdir((directry = pop_env(feed, "OLDPWD=")) ? directry : "/");
 	}
 	else
-		retchld = chdir(info->argv[1]);
+		retchld = chdir(feed->argv[1]);
 	if (retchld == -1)
 	{
-		errorprnt(info, "can't cd to ");
-		putide(info->argv[1]), charins('\n');
+		errorprnt(feed, "can't cd to ");
+		putide(feed->argv[1]), charins('\n');
 	}
 	else
 	{
-		ptenv(info, "OLDPWD", pop_env(info, "PWD="));
-		ptenv(info, "PWD", getcwd(buffer, 1024));
+		ptenv(feed, "OLDPWD", pop_env(feed, "PWD="));
+		ptenv(feed, "PWD", getcwd(buffer, 1024));
 	}
 	return (0);
 }
 
 /**
  * help_inf - Changes current directory.
- * @info: Structure containing potential fn prototype.
+ * @feed: Structure containing potential fn prototype.
  *  Return: 0.
  */
-int help_inf(pseuarg_ch *info)
+int help_inf(pseuarg_ch *feed)
 {
 	char **arr_arg;
 
-	arr_arg = info->argv;
+	arr_arg = feed->argv;
 	strngin("help call works. Function not yet implemented \n");
 	if (0)
 		strngin(*arr_arg);

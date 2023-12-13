@@ -199,11 +199,11 @@ int hist_rep(pseuarg_ch *);
 int alum_hist(pseuarg_ch *);
 
 /* history.c */
-char *histfile_fetch(pseuarg_ch *info);
-int hist_updt(pseuarg_ch *info);
-int rdhist(pseuarg_ch *info);
-int histlst_b(pseuarg_ch *info, char *buff, int linecount);
-int nmber_hist(pseuarg_ch *info);
+char *histfile_fetch(pseuarg_ch *feed);
+int hist_updt(pseuarg_ch *feed);
+int rdhist(pseuarg_ch *feed);
+int histlst_b(pseuarg_ch *feed, char *buff, int linecount);
+int nmber_hist(pseuarg_ch *feed);
 
 /* vars.c */
 int str_ch(pseuarg_ch *, char *, size_t *);

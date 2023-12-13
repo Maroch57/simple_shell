@@ -2,22 +2,22 @@
 
 /**
  * hist_rep - This command displays history-related details
- * @info: The structure that denotes possible arguments
+ * @feed: The structure that denotes possible arguments
  * Return: Always 0
  */
-int hist_rep(pseuarg_ch *info)
+int hist_rep(pseuarg_ch *feed)
 {
-	prnt_lst(info->hst);
+	prnt_lst(feed->hst);
 	return (0);
 }
 
 /**
  * rmalias - This command assigns an alias to a string
- * @info: The parameter
+ * @feed: The parameter
  * @strng: The alias denoting the string
  * Return: 0 if success, 1 if error
  */
-int rmalias(pseuarg_ch *info, char *strng)
+int rmalias(pseuarg_ch *feed, char *strng)
 {
 	char *q, d;
 	int rtrn;
@@ -27,18 +27,18 @@ int rmalias(pseuarg_ch *info, char *strng)
 		return (1);
 	d = *q;
 	*q = 0;
-	rtrn = indxnode_del(&(info->fake), indx_gt(info->fake, strt_strng(info->fake, strng, -1)));
+	rtrn = indxnode_del(&(feed->fake), indx_gt(feed->fake, strt_strng(feed->fake, strng, -1)));
 	*q = d;
 	return (rtrn);
 }
 
 /**
  * putalias - Assigns an alias to a string
- * @info: The parameter
+ * @feed: The parameter
  * @strng: Alias denoting the string
  * Return: 0 if success, 1 if error
  */
-int putalias(pseuarg_ch *info, char *strng)
+int putalias(pseuarg_ch *feed, char *strng)
 {
 	char *q;
 
@@ -46,10 +46,10 @@ int putalias(pseuarg_ch *info, char *strng)
 	if (!q)
 		return (1);
 	if (!*++q)
-		return (rmalias(info, strng));
+		return (rmalias(feed, strng));
 
-	rmalias(info, strng);
-	return (endnode_add(&(info->fake), strng, 0) == NULL);
+	rmalias(feed, strng);
+	return (endnode_add(&(feed->fake), strng, 0) == NULL);
 }
 
 /**
@@ -76,18 +76,18 @@ int prntalias(lst_m *node)
 
 /**
  * alum_hist - Replicates the builtin alias
- * @info: The structure denoting possible arguments
+ * @feed: The structure denoting possible arguments
  *  Return: 0
  */
-int alum_hist(pseuarg_ch *info)
+int alum_hist(pseuarg_ch *feed)
 {
 	int n = 0;
 	char *q = NULL;
 	lst_m *node = NULL;
 
-	if (info->argc == 1)
+	if (feed->argc == 1)
 	{
-		node = info->fake;
+		node = feed->fake;
 		while (node)
 		{
 			prntalias(node);
@@ -95,13 +95,13 @@ int alum_hist(pseuarg_ch *info)
 		}
 		return (0);
 	}
-	for (n = 1; info->argv[n]; n++)
+	for (n = 1; feed->argv[n]; n++)
 	{
-		q = str_imp(info->argv[n], '=');
+		q = str_imp(feed->argv[n], '=');
 		if (q)
-			putalias(info, info->argv[n]);
+			putalias(feed, feed->argv[n]);
 		else
-			prntalias(strt_strng(info->fake, info->argv[n], '='));
+			prntalias(strt_strng(feed->fake, feed->argv[n], '='));
 	}
 
 	return (0);

@@ -2,13 +2,13 @@
 
 /**
  * actv_int - if shell is interactive returns true as outpt.
- * @info: address of the struct.
+ * @feed: address of the struct.
  *
  * Return: 1 if successful else 0.
  */
-int actv_int(pseuarg_ch *info)
+int actv_int(pseuarg_ch *feed)
 {
-	return (isatty(STDIN_FILENO) && info->telldes <= 2);
+	return (isatty(STDIN_FILENO) && feed->telldes <= 2);
 }
 
 /**

@@ -2,25 +2,25 @@
 
 /**
  * myown_env - ensures current environment is printed.
- * @info: struct contains potential constant fn prototype.
+ * @feed: struct contains potential constant fn prototype.
  * Return: 0
  */
-int myown_env(pseuarg_ch *info)
+int myown_env(pseuarg_ch *feed)
 {
-	lststr_prnt(info->exvar);
+	lststr_prnt(feed->exvar);
 	return (0);
 }
 
 /**
  * pop_env - fn gets environment variable values.
- * @info: struct of arguments in use.
+ * @feed: struct of arguments in use.
  * @vname: variable name on env in subject.
  *
  * Return: value.
  */
-char *pop_env(pseuarg_ch *info, const char *vname)
+char *pop_env(pseuarg_ch *feed, const char *vname)
 {
-	lst_m *node = info->exvar;
+	lst_m *node = feed->exvar;
 	char *k;
 
 	while (node)
@@ -35,53 +35,53 @@ char *pop_env(pseuarg_ch *info, const char *vname)
 
 /**
  * good_env - configs/modif new environment variables.
- * @info: struct containing potential arg prototypes.
+ * @feed: struct containing potential arg prototypes.
  * Return: 0
  */
-int good_env(pseuarg_ch *info)
+int good_env(pseuarg_ch *feed)
 {
-	if (info->argc != 3)
+	if (feed->argc != 3)
 	{
 		putide("Incorrect number of arguements\n");
 		return (1);
 	}
-	if (ptenv(info, info->argv[1], info->argv[2]))
+	if (ptenv(feed, feed->argv[1], feed->argv[2]))
 		return (0);
 	return (1);
 }
 
 /**
  * bad_env - eliminates/removes an env var.
- * @info: struct containing potential arg prototype.
+ * @feed: struct containing potential arg prototype.
  *  Return: 0
  */
-int bad_env(pseuarg_ch *info)
+int bad_env(pseuarg_ch *feed)
 {
 	int d;
 
-	if (info->argc == 1)
+	if (feed->argc == 1)
 	{
 		putide("Too few arguements.\n");
 		return (1);
 	}
-	for (d = 1; d <= info->argc; d++)
-		envunp(info, info->argv[d]);
+	for (d = 1; d <= feed->argc; d++)
+		envunp(feed, feed->argv[d]);
 
 	return (0);
 }
 
 /**
  * fill_env - adds to an environmnt lst.
- * @info: struct contains potential arg prototypes.
+ * @feed: struct contains potential arg prototypes.
  * Return: 0
  */
-int fill_env(pseuarg_ch *info)
+int fill_env(pseuarg_ch *feed)
 {
 	lst_m *node = NULL;
 	size_t d;
 
 	for (d = 0; environ[d]; d++)
 		endnode_add(&node, environ[d], 0);
-	info->exvar = node;
+	feed->exvar = node;
 	return (0);
 }
