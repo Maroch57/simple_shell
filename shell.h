@@ -106,118 +106,118 @@ typedef struct embedstr
 
 int shelloop(char **);
 
-/* shloop.c */
+/* shcirc.c */
 int shellmain(pseuarg_ch *, char **);
 int go_emb(pseuarg_ch *);
 void loc_comm(pseuarg_ch *);
 void loc_fork(pseuarg_ch *);
 
-/* string1.c */
+/* strngf.c */
 char *strngcop(char *, char *);
 char *strngclone(const char *);
 void strngin(char *);
 int _putchar(char);
 
-/* parser.c */
+/* split.c */
 int cmdprt(pseuarg_ch *, char *);
 char *chardup(char *, int, int);
 char *locpath(pseuarg_ch *, char *, char *);
 
-/* errors.c */
+/* err.c */
 void putide(char *);
 int charins(char);
 int fputer(char c, int fd);
 int fndpt(char *strng, int fd);
 
-/* exits.c */
+/* exout.c */
 char *cppy_strng(char *, char *, int);
 char *strngmod(char *, char *, int);
 char *str_imp(char *, char);
 
-/* string.c */
+/* strng.c */
 int lngth_str(char *);
 int strn_cmp(char *, char *);
 char *at_strt(const char *, const char *);
 char *strn_cat(char *, char *);
 
-/* errors1.c */
+/* errf.c */
 int exst_err(char *);
 void errorprnt(pseuarg_ch *, char *);
 int disprnt(int, int);
 char *conv_nmber(long int, int, int);
 void rm_comm(char *);
 
-/* realloc.c */
+/* rloc.c */
 char *mmry_arn(char *, char, unsigned int);
 void dmfree(char **);
 void *mem_ralloc(void *, unsigned int, unsigned int);
 
-/* getline.c */
+/* linget.c */
 ssize_t inpt_gt(pseuarg_ch *);
 int get_delim(pseuarg_ch *, char **, size_t *);
 void mngint(int);
 
-/* tokenizer.c */
+/* reward.c */
 char **mod_strng(char *, char *);
 char **checkstrn(char *, char);
 
-/* memory.c */
+/* rem.c */
 int mem_free(void **);
 
-/* getinfo.c */
+/* iget.c */
 void infclr(pseuarg_ch *);
 void infprs(pseuarg_ch *, char **);
 void infree(pseuarg_ch *, int);
 
-/* getenv.c */
+/* eget.c */
 char **aqrenv(pseuarg_ch *);
 int envunp(pseuarg_ch *, char *);
 int ptenv(pseuarg_ch *, char *, char *);
 
-/* atoi.c */
+/* at.c */
 int actv_int(pseuarg_ch *);
 int prser(char, char *);
 int bst_int(int);
 int atoi_t(char *);
 
-/* environ.c */
+/* evar.c */
 char *pop_env(pseuarg_ch *, const char *);
 int myown_env(pseuarg_ch *);
 int good_env(pseuarg_ch *);
 int bad_env(pseuarg_ch *);
 int fill_env(pseuarg_ch *);
 
-/* lists1.c */
+/* lstf.c */
 size_t lngth_lst(const lst_m *);
 char **strng_lst(lst_m *);
 size_t prnt_lst(const lst_m *);
 lst_m *strt_strng(lst_m *, char *, char);
 ssize_t indx_gt(lst_m *, lst_m *);
 
-/* builtin1.c */
+/* blt1.c */
 int hist_rep(pseuarg_ch *);
 int alum_hist(pseuarg_ch *);
 
-/* history.c */
+/* hst.c */
 char *histfile_fetch(pseuarg_ch *feed);
 int hist_updt(pseuarg_ch *feed);
 int rdhist(pseuarg_ch *feed);
 int histlst_b(pseuarg_ch *feed, char *buff, int linecount);
 int nmber_hist(pseuarg_ch *feed);
 
-/* vars.c */
+/* store.c */
 int str_ch(pseuarg_ch *, char *, size_t *);
 void look_ch(pseuarg_ch *, char *, size_t *, size_t, size_t);
 int rp_alias(pseuarg_ch *);
 int rp_vstr(pseuarg_ch *);
 int strn_chng(char **, char *);
 
-/* builtin.c */
+/* blt.c */
 int exist_sts(pseuarg_ch *);
 int cd_mine(pseuarg_ch *);
 int help_inf(pseuarg_ch *);
 
-/* lists.c */
+/* lst.c */
 lst_m *populate_node(lst_m **, const char *, int);
 lst_m *endnode_add(lst_m **, const char *, int);
 size_t lststr_prnt(const lst_m *);
