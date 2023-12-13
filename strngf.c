@@ -73,14 +73,14 @@ void strngin(char *sstr)
 int _putchar(char c)
 {
 	static int k;
-	static char buf[WRITE_BUFFER_SIZE];
+	static char buff[WRITE_BUFFER_SIZE];
 
 	if (k == BUFFER_FLUSH || k >= WRITE_BUFFER_SIZE)
 	{
-		write(1, buf, k);
+		write(1, buff, k);
 		k = 0;
 	}
 	if (c != BUFFER_FLUSH)
-		buf[k++] = c;
+		buff[k++] = c;
 	return (1);
 }

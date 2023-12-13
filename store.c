@@ -3,30 +3,30 @@
 /**
  * str_ch - responsible for testing if chars are delimeters.
  * @feed: the param struct in subject.
- * @buf: char buffer in subject.
+ * @buff: char buffer in subject.
  * @potr: the address current position in buffer.
  *
  * Return: 1 if successful,else 0.
  */
-int str_ch(pseuarg_ch *feed, char *buf, size_t *potr)
+int str_ch(pseuarg_ch *feed, char *buff, size_t *potr)
 {
 	size_t k = *potr;
 
-	if (buf[k] == '|' && buf[k + 1] == '|')
+	if (buff[k] == '|' && buff[k + 1] == '|')
 	{
-		buf[k] = 0;
+		buff[k] = 0;
 		k++;
 		feed->cdbuffertype = OR_CMND;
 	}
-	else if (buf[k] == '&' && buf[k + 1] == '&')
+	else if (buff[k] == '&' && buff[k + 1] == '&')
 	{
-		buf[k] = 0;
+		buff[k] = 0;
 		k++;
 		feed->cdbuffertype = AND_CMND;
 	}
-	else if (buf[k] == ';')
+	else if (buff[k] == ';')
 	{
-		buf[k] = 0;
+		buff[k] = 0;
 		feed->cdbuffertype = CHAIN_CMND;
 	}
 	else
@@ -38,14 +38,14 @@ int str_ch(pseuarg_ch *feed, char *buf, size_t *potr)
 /**
  * look_ch - indluences chaining processes.
  * @feed: struct parameter in subject.
- * @buf: buffer character in subject.
+ * @buff: buffer character in subject.
  * @m: current position buffer address.
  * @n: the starting buffer position.
  * @lngth: current buffer lngth.
  *
  * Return: NULL.
  */
-void look_ch(pseuarg_ch *feed, char *buf, size_t *m, size_t n, size_t lngth)
+void look_ch(pseuarg_ch *feed, char *buff, size_t *m, size_t n, size_t lngth)
 {
 	size_t q = *m;
 
@@ -53,7 +53,7 @@ void look_ch(pseuarg_ch *feed, char *buf, size_t *m, size_t n, size_t lngth)
 	{
 		if (feed->tellstat)
 		{
-			buf[n] = 0;
+			buff[n] = 0;
 			q = lngth;
 		}
 	}
@@ -61,7 +61,7 @@ void look_ch(pseuarg_ch *feed, char *buf, size_t *m, size_t n, size_t lngth)
 	{
 		if (!feed->tellstat)
 		{
-			buf[n] = 0;
+			buff[n] = 0;
 			q = lngth;
 		}
 	}
