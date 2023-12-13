@@ -4,7 +4,7 @@
  * actv_int - if shell is interactive returns true as outpt.
  * @info: address of the struct.
  *
- * Return: 1 if in interactive mode else 0.
+ * Return: 1 if successful else 0.
  */
 int actv_int(pseuarg_ch *info)
 {
