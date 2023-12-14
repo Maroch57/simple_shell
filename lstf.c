@@ -24,7 +24,7 @@ size_t lngth_lst(const lst_m *pr)
  */
 char **strng_lst(lst_m *phead)
 {
-	lst_m *node = phead;
+	lst_m *sect = phead;
 	size_t y = lngth_lst(phead), z;
 	char **sstrs;
 	char *strng;
@@ -34,9 +34,9 @@ char **strng_lst(lst_m *phead)
 	sstrs = malloc(sizeof(char *) * (y + 1));
 	if (!sstrs)
 		return (NULL);
-	for (y = 0; node; node = node->next, y++)
+	for (y = 0; sect; sect = sect->next, y++)
 	{
-		strng = malloc(lngth_str(node->strng) + 1);
+		strng = malloc(lngth_str(sect->strng) + 1);
 		if (!strng)
 		{
 			for (z = 0; z < y; z++)
@@ -45,7 +45,7 @@ char **strng_lst(lst_m *phead)
 			return (NULL);
 		}
 
-		strng = strngcop(strng, node->strng);
+		strng = strngcop(strng, sect->strng);
 		sstrs[y] = strng;
 	}
 	sstrs[y] = NULL;
@@ -77,21 +77,21 @@ size_t prnt_lst(const lst_m *pr)
 
 /**
  * strt_stng - Returns node starting a string.
- * @nod: Ptr to head of list.
+ * @sect: Ptr to head of list.
  * @upfront: String in subject under match.
  * @charinp: Next char after prefix under match.
  * Return: Void
  */
-lst_m *strt_strng(lst_m *nod, char *upfront, char charinp)
+lst_m *strt_strng(lst_m *sect, char *upfront, char charinp)
 {
 	char *m = NULL;
 
-	while (nod)
+	while (sect)
 	{
-		m = at_strt(nod->strng, upfront);
+		m = at_strt(sect->strng, upfront);
 		if (m && ((charinp == -1) || (*m == charinp)))
-			return (nod);
-		nod = nod->next;
+			return (sect);
+		sect = sect->next;
 	}
 	return (NULL);
 }
@@ -99,16 +99,16 @@ lst_m *strt_strng(lst_m *nod, char *upfront, char charinp)
 /**
  * indx_gt - Obtains node index.
  * @nog: Ptr to head of list.
- * @node: The ptr to the node in subject.
+ * @sect: The ptr to the node in subject.
  * Return: node index else, -1
  */
-ssize_t indx_gt(lst_m *nog, lst_m *node)
+ssize_t indx_gt(lst_m *nog, lst_m *sect)
 {
 	size_t b = 0;
 
 	while (nog)
 	{
-		if (nog == node)
+		if (nog == sect)
 			return (b);
 		nog = nog->next;
 		b++;

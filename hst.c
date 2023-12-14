@@ -29,7 +29,7 @@ char *histfile_fetch(pseuarg_ch *feed)
  */
 int hist_updt(pseuarg_ch *feed)
 {
-	lst_m *node = NULL;
+	lst_m *sect = NULL;
 	ssize_t fd;
 	char *file = histfile_fetch(feed);
 
@@ -40,9 +40,9 @@ int hist_updt(pseuarg_ch *feed)
 	free(file);
 	if (fd == -1)
 		return (-1);
-	for (node = feed->hst; node; node = node->next)
+	for (sect = feed->hst; sect; sect = sect->next)
 	{
-		fndpt(node->strng, fd);
+		fndpt(sect->strng, fd);
 		fputer('\n', fd);
 	}
 	fputer(BUFFER_FLUSH, fd);
@@ -107,14 +107,14 @@ int rdhist(pseuarg_ch *feed)
  */
 int histlst_b(pseuarg_ch *feed, char *buff, int count)
 {
-	lst_m *node = NULL;
+	lst_m *sect = NULL;
 
 	if (feed->hst)
-		node = feed->hst;
-	endnode_add(&node, buff, count);
+		sect = feed->hst;
+	endnode_add(&sect, buff, count);
 
 	if (!feed->hst)
-		feed->hst = node;
+		feed->hst = sect;
 	return (0);
 }
 
@@ -125,13 +125,13 @@ int histlst_b(pseuarg_ch *feed, char *buff, int count)
  */
 int nmber_hist(pseuarg_ch *feed)
 {
-	lst_m *node = feed->hst;
+	lst_m *sect = feed->hst;
 	int a = 0;
 
-	while (node)
+	while (sect)
 	{
-		node->nmber = a++;
-		node = node->next;
+		sect->nmber = a++;
+		sect = sect->next;
 	}
 	return (feed->tellhist = a);
 }

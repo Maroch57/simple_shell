@@ -19,15 +19,15 @@ int myown_env(pseuarg_ch *feed)
  */
 char *pop_env(pseuarg_ch *feed, const char *vname)
 {
-	lst_m *node = feed->exvar;
+	lst_m *sect = feed->exvar;
 	char *k;
 
-	while (node)
+	while (sect)
 	{
-		k = at_strt(node->strng, vname);
+		k = at_strt(sect->strng, vname);
 		if (k && *k)
 			return (k);
-		node = node->next;
+		sect = sect->next;
 	}
 	return (NULL);
 }
@@ -76,11 +76,11 @@ int bad_env(pseuarg_ch *feed)
  */
 int fill_env(pseuarg_ch *feed)
 {
-	lst_m *node = NULL;
+	lst_m *sect = NULL;
 	size_t d;
 
 	for (d = 0; environ[d]; d++)
-		endnode_add(&node, environ[d], 0);
-	feed->exvar = node;
+		endnode_add(&sect, environ[d], 0);
+	feed->exvar = sect;
 	return (0);
 }

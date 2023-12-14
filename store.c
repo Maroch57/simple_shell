@@ -75,16 +75,16 @@ void look_ch(pseuarg_ch *feed, char *buff, size_t *m, size_t n, size_t lngth)
 int rp_alias(pseuarg_ch *feed)
 {
 	int a;
-	lst_m *node;
+	lst_m *sect;
 	char *r;
 
 	for (a = 0; a < 10; a++)
 	{
-		node = strt_strng(feed->fake, feed->argv[0], '=');
-		if (!node)
+		sect = strt_strng(feed->fake, feed->argv[0], '=');
+		if (!sect)
 			return (0);
 		free(feed->argv[0]);
-		r = str_imp(node->strng, '=');
+		r = str_imp(sect->strng, '=');
 		if (!r)
 			return (0);
 		r = strngclone(r + 1);
@@ -103,7 +103,7 @@ int rp_alias(pseuarg_ch *feed)
 int rp_vstr(pseuarg_ch *feed)
 {
 	int v = 0;
-	lst_m *node;
+	lst_m *sect;
 
 	for (v = 0; feed->argv[v]; v++)
 	{
@@ -122,11 +122,11 @@ int rp_vstr(pseuarg_ch *feed)
 				strngclone(conv_nmber(getpid(), 10, 0)));
 			continue;
 		}
-		node = strt_strng(feed->exvar, &feed->argv[v][1], '=');
-		if (node)
+		sect = strt_strng(feed->exvar, &feed->argv[v][1], '=');
+		if (sect)
 		{
 			strn_chng(&(feed->argv[v]),
-				strngclone(str_imp(node->strng, '=') + 1));
+				strngclone(str_imp(sect->strng, '=') + 1));
 			continue;
 		}
 		strn_chng(&feed->argv[v], strngclone(""));

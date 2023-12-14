@@ -24,24 +24,24 @@ char **aqrenv(pseuarg_ch *feed)
  */
 int envunp(pseuarg_ch *feed, char *evible)
 {
-	lst_m *node = feed->exvar;
+	lst_m *sect = feed->exvar;
 	size_t a = 0;
 	char *q;
 
-	if (!node || !evible)
+	if (!sect || !evible)
 		return (0);
 
-	while (node)
+	while (sect)
 	{
-		q = at_strt(node->strng, evible);
+		q = at_strt(sect->strng, evible);
 		if (q && *q == '=')
 		{
 			feed->new_env = indxnode_del(&(feed->exvar), a);
 			a = 0;
-			node = feed->exvar;
+			sect = feed->exvar;
 			continue;
 		}
-		node = node->next;
+		sect = sect->next;
 		a++;
 	}
 	return (feed->new_env);
@@ -57,7 +57,7 @@ int envunp(pseuarg_ch *feed, char *evible)
 int ptenv(pseuarg_ch *feed, char *evible, char *strev)
 {
 	char *buff = NULL;
-	lst_m *node;
+	lst_m *sect;
 	char *q;
 
 	if (!evible || !strev)
@@ -69,18 +69,18 @@ int ptenv(pseuarg_ch *feed, char *evible, char *strev)
 	strngcop(buff, evible);
 	strn_cat(buff, "=");
 	strn_cat(buff, strev);
-	node = feed->exvar;
-	while (node)
+	sect = feed->exvar;
+	while (sect)
 	{
-		q = at_strt(node->strng, evible);
+		q = at_strt(sect->strng, evible);
 		if (q && *q == '=')
 		{
-			free(node->strng);
-			node->strng = buff;
+			free(sect->strng);
+			sect->strng = buff;
 			feed->new_env = 1;
 			return (0);
 		}
-		node = node->next;
+		sect = sect->next;
 	}
 	endnode_add(&(feed->exvar), buff, 0);
 	free(buff);

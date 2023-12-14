@@ -54,17 +54,17 @@ int putalias(pseuarg_ch *feed, char *strng)
 
 /**
  * prntalias - The command to print an alias string
- * @node: The node denoting the alias
+ * @sect: The sect/node denoting the alias
  * Return: 0 if success, 1 if error
  */
-int prntalias(lst_m *node)
+int prntalias(lst_m *sect)
 {
 	char *q = NULL, *x = NULL;
 
-	if (node)
+	if (sect)
 	{
-		q = str_imp(node->strng, '=');
-		for (x = node->strng; x <= q; x++)
+		q = str_imp(sect->strng, '=');
+		for (x = sect->strng; x <= q; x++)
 			_putchar(*x);
 		_putchar('\'');
 		strngin(q + 1);
@@ -83,15 +83,15 @@ int alum_hist(pseuarg_ch *feed)
 {
 	int n = 0;
 	char *q = NULL;
-	lst_m *node = NULL;
+	lst_m *sect = NULL;
 
 	if (feed->argc == 1)
 	{
-		node = feed->fake;
-		while (node)
+		sect = feed->fake;
+		while (sect)
 		{
-			prntalias(node);
-			node = node->next;
+			prntalias(sect);
+			sect = sect->next;
 		}
 		return (0);
 	}

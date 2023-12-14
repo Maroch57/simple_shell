@@ -41,12 +41,12 @@ lst_m *populate_node(lst_m **h, const char *strng, int nmber)
  */
 lst_m *endnode_add(lst_m **h, const char *strng, int nmber)
 {
-	lst_m *node, *addn;
+	lst_m *sect, *addn;
 
 	if (!h)
 		return (NULL);
 
-	node = *h;
+	sect = *h;
 	addn = malloc(sizeof(lst_m));
 	if (!addn)
 		return (NULL);
@@ -61,11 +61,11 @@ lst_m *endnode_add(lst_m **h, const char *strng, int nmber)
 			return (NULL);
 		}
 	}
-	if (node)
+	if (sect)
 	{
-		while (node->next)
-			node = node->next;
-		node->next = addn;
+		while (sect->next)
+			sect = sect->next;
+		sect->next = addn;
 	}
 	else
 		*h = addn;
@@ -100,32 +100,32 @@ size_t lststr_prnt(const lst_m *hd)
 int indxnode_del(lst_m **h, unsigned int ind)
 {
 	unsigned int a = 0;
-	lst_m *node, *tdtd;
+	lst_m *sect, *tdtd;
 
 	if (!h || !*h)
 		return (0);
 
 	if (!ind)
 	{
-		node = *h;
+		sect = *h;
 		*h = (*h)->next;
-		free(node->strng);
-		free(node);
+		free(sect->strng);
+		free(sect);
 		return (1);
 	}
-	node = *h;
-	while (node)
+	sect = *h;
+	while (sect)
 	{
 		if (a == ind)
 		{
-			tdtd->next = node->next;
-			free(node->strng);
-			free(node);
+			tdtd->next = sect->next;
+			free(sect->strng);
+			free(sect);
 			return (1);
 		}
 		a++;
-		tdtd = node;
-		node = node->next;
+		tdtd = sect;
+		sect = sect->next;
 	}
 	return (0);
 }
@@ -137,18 +137,18 @@ int indxnode_del(lst_m **h, unsigned int ind)
  */
 void freelst(lst_m **pthd)
 {
-	lst_m *node, *nexn, *h;
+	lst_m *sect, *nexn, *h;
 
 	if (!pthd || !*pthd)
 		return;
 	h = *pthd;
-	node = h;
-	while (node)
+	sect = h;
+	while (sect)
 	{
-		nexn = node->next;
-		free(node->strng);
-		free(node);
-		node = nexn;
+		nexn = sect->next;
+		free(sect->strng);
+		free(sect);
+		sect = nexn;
 	}
 	*pthd = NULL;
 }
